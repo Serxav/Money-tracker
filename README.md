@@ -24,6 +24,7 @@ Todas las propuestas, con qué aportan y cómo repartirlas, están en **[ideas.m
 | Sergi Pascual | [@Serxav](https://github.com/Serxav) | Developer |
 | Jan Rodrgiuez | [@P4NKK-TRYHARD](https://github.com/P4NKK-TRYHARD) | Developer |
 | Pau Olivares. | [@Pau-Dev-O](https://github.com/Pau-Dev-O) | Developer |
+| Aleix De Alburquerque. | [@condeduque](https://github.com/condeduque) | Developer |
 
 ## 🤝 Cómo trabajamos
 
