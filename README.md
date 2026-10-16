@@ -2,7 +2,7 @@
 
 > 🚧 **En fase de ideas.** El nombre es provisional: cuando elijamos el proyecto, el repo cambiará de nombre.
 
-Proyecto conjunto de tres estudiantes de FP para crear una **herramienta open source útil de verdad**: algo que la gente use, que podamos enseñar en el currículum y que aprendamos haciendo.
+Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open source útil de verdad**: algo que la gente use, que podamos enseñar en el currículum y que aprendamos haciendo.
 
 ## 📌 Estado
 
