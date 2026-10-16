@@ -4,7 +4,7 @@ Lluvia de ideas para el proyecto conjunto. Criterios que buscamos:
 
 - **Útil de verdad** → que alguien la busque, la use y la recomiende (= estrellas ⭐).
 - **Suma al currículum** → que podamos explicarla en una entrevista o en el proyecto final de DAM.
-- **Abarcable entre 3** → que se pueda sacar una primera versión en pocas semanas.
+- **Abarcable entre 4** → que se pueda sacar una primera versión en pocas semanas.
 - **Aprovecha lo que ya sabemos** → IA y agentes, macOS / Apple (ATLAS), redes y MikroTik, Linux, iGaming.
 
 Cada idea lleva: qué es, por qué puede tener estrellas, qué aporta al CV, stack posible y cómo repartirla entre los tres.
