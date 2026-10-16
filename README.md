@@ -4,7 +4,7 @@ Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open 
 
 ## 📌 Estado
 
-Comletado: Money tracker (Money manager app) - Waiting aprove to continue expanding
+Completed: Money tracker (Money manager app) - Waiting aprove to continue expanding
 
 ## 👥 Equipo
 
