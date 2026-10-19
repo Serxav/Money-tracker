@@ -2,6 +2,8 @@
 
 ## Flujo de trabajo
 
+> Las versiones, RCs, `develop` y `release/*` están descritos en [WORKFLOW.md](WORKFLOW.md). Las ramas de tarea salen de `develop` y los PRs van hacia `develop`.
+
 1. **Nada directo a `main`.** Cada tarea va en su propia rama:
    - `feat/nombre-corto` → funcionalidad nueva
    - `fix/nombre-corto` → corrección
