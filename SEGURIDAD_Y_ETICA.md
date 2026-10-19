@@ -1,6 +1,6 @@
 # Seguridad, privacidad y ética
 
-Guía para los programadores del Money Tracker (Backend, Web y app móvil Android/iOS). Los datos financieros personales son **sensibles**: aunque no manejamos dinero real ni conectamos con bancos, un movimiento revela hábitos, salud, ideología o situación económica de una persona. Trátalos con ese nivel de cuidado desde el primer commit.
+Guía para los programadores del Money Tracker (Backend y app móvil Android/iOS). Los datos financieros personales son **sensibles**: aunque no manejamos dinero real ni conectamos con bancos, un movimiento revela hábitos, salud, ideología o situación económica de una persona. Trátalos con ese nivel de cuidado desde el primer commit.
 
 > Es una lista de requisitos mínimos, no un documento legal. Los puntos de RGPD deben contrastarse con el texto oficial y, si el proyecto sale del ámbito académico, con un profesional.
 
@@ -17,7 +17,7 @@ Guía para los programadores del Money Tracker (Backend, Web y app móvil Androi
 
 1. **Mínimo dato necesario**: no recojas, guardes ni registres en logs nada que la funcionalidad no necesite.
 2. **Seguridad por diseño y por defecto**: la opción más privada y segura es la que viene activada.
-3. **Defensa en profundidad**: nunca dependas de una sola barrera (p. ej. la web oculta un botón *y* el backend valida el permiso).
+3. **Defensa en profundidad**: nunca dependas de una sola barrera (p. ej. la app oculta un botón *y* el backend valida el permiso).
 4. **El cliente no es de fiar**: toda validación y toda autorización se hace en el backend.
 5. **Transparencia**: la persona usuaria sabe qué datos tenemos, para qué y puede llevárselos o borrarlos.
 
@@ -60,12 +60,12 @@ Referencia: [OWASP API Security Top 10 (2023)](https://apisecurity.io/owasp-api-
 - **DEBE** servirse solo por **HTTPS** (TLS 1.2 o superior) en staging y producción; redirigir HTTP o rechazarlo.
 - **DEBE** validar tipo, longitud, rango y formato de **toda** entrada (importes numéricos y acotados, fechas válidas, longitud máxima de textos).
 - **DEBE** usar **consultas parametrizadas / ORM**; prohibido construir SQL concatenando texto (inyección SQL).
-- **DEBE** escapar o sanear lo que se muestre en la web (descripciones libres) para evitar XSS.
+- **DEBE** devolver las descripciones libres como datos, sin interpretarlas; si en el futuro se añade una web, escapar la salida para evitar XSS.
 - **DEBE** devolver errores genéricos al cliente (sin *stack traces*, sin nombres de tablas) y registrar el detalle solo en el servidor.
 - **DEBERÍA** usar importes en **unidades menores enteras** (céntimos) o tipos decimales exactos, nunca `float`, para evitar errores de redondeo. Al haber varias divisas, el número de decimales depende de la divisa (ISO 4217).
 - **Divisas y tipos de cambio**: validar que el código de divisa sea ISO 4217 y esté soportado. Los tipos de cambio los obtiene **solo el backend** de un proveedor externo, **sin enviarle datos del usuario**; validar y acotar lo que devuelve (API10), tener un valor de reserva si el proveedor falla y no confiar en tasas enviadas por el cliente.
-- **CORS**: permitir solo los orígenes de nuestra web, nunca `*` con credenciales.
-- **Cabeceras de seguridad** en la web: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`/`frame-ancestors`.
+- **CORS**: la app móvil no lo necesita; si se añade una web, permitir solo sus orígenes, nunca `*` con credenciales.
+- **Cabeceras de seguridad** en la API: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`/`frame-ancestors`.
 - **Base de datos**: usuario de aplicación con permisos mínimos, no accesible desde internet, copias de seguridad cifradas y restauración probada.
 - **Dependencias**: actualizadas, sin vulnerabilidades conocidas (§9).
 
@@ -79,7 +79,7 @@ Referencia: [OWASP API Security Top 10 (2023)](https://apisecurity.io/owasp-api-
 - **DEBE** exigir una política mínima de contraseña (longitud mínima de 8–12 caracteres, sin obligar a símbolos raros) y comprobar contraseñas muy comunes.
 - **DEBE** limitar intentos de login (por cuenta e IP) y responder igual si el usuario no existe o la contraseña es incorrecta, para no revelar qué emails están registrados.
 - **Tokens**: caducidad corta para el *access token* y *refresh token* revocable; invalidar en logout y al cambiar la contraseña.
-- **Web**: si se usan cookies, `HttpOnly`, `Secure`, `SameSite`; protección CSRF. **No** guardar tokens en `localStorage` si puede evitarse.
+- **Móvil**: tokens solo en Keystore/Keychain (§5), nunca en preferencias en claro. Si en el futuro se añade una web: cookies `HttpOnly`, `Secure`, `SameSite`, protección CSRF y evitar `localStorage` para tokens.
 - **DEBERÍA** ofrecer verificación del email y, a medio plazo, doble factor (2FA).
 - **Restablecer contraseña**: enlaces de un solo uso y con caducidad corta; no revelar si el email existe.
 - **Secretos**: claves de firma, contraseñas de BD y claves de API en variables de entorno / *secrets* de GitHub. **Nunca** en el repositorio (ver `.gitignore` y [WORKFLOW.md](WORKFLOW.md) §6).
@@ -104,15 +104,9 @@ Referencia: [OWASP MASVS](https://opensecurityarchitecture.org/frameworks/owasp-
 
 ---
 
-## 6. Web
+## 6. Web (fuera de alcance por ahora)
 
-- **XSS**: usar el escapado por defecto del framework; evitar `innerHTML`/`dangerouslySetInnerHTML` con datos de usuario.
-- **CSRF**: tokens o `SameSite` según el esquema de sesión.
-- **CSP** restrictiva y sin scripts de terceros innecesarios. Si se usan, **Subresource Integrity (SRI)**.
-- **Sin secretos en el front**: todo lo que va al navegador es público (claves de API, URLs internas...).
-- **Datos en el navegador**: no cachear respuestas con datos sensibles; borrar el estado al cerrar sesión.
-- **Cookies/consentimiento**: si hay cookies no esenciales o analítica, pedir consentimiento previo (§7).
-- **Accesibilidad**: contraste, teclado y lectores de pantalla (también es un tema ético, §8).
+No hay cliente web. Si se añade en el futuro, antes de empezar habrá que incorporar como mínimo: protección **XSS** (escapado por defecto, sin `innerHTML` con datos de usuario), **CSRF**, **CSP** restrictiva con SRI para scripts de terceros, ningún secreto en el front, no cachear datos sensibles, consentimiento de cookies no esenciales (§7) y CORS limitado a sus orígenes.
 
 ---
 
@@ -178,7 +172,7 @@ Más allá de la ley, estas son decisiones que tomamos como equipo:
 
 ## 10. Checklist para PRs y RCs
 
-**En cada PR que toque backend, web o móvil**
+**En cada PR que toque backend o móvil**
 - [ ] Toda entrada se valida en el backend.
 - [ ] Cada endpoint comprueba autenticación **y** que el recurso pertenece al usuario.
 - [ ] No se devuelven más campos de los necesarios.
@@ -192,7 +186,7 @@ Más allá de la ley, estas son decisiones que tomamos como equipo:
 - [ ] Tráfico solo por HTTPS; sin `cleartext` ni verificación TLS desactivada.
 - [ ] Modo debug desactivado y sin *stack traces* al cliente.
 - [ ] Rate limiting y paginación activos.
-- [ ] Cabeceras de seguridad y CORS restrictivo verificados.
+- [ ] Cabeceras de seguridad de la API verificadas.
 - [ ] APK de release firmado, `debuggable=false`, sin secretos en el APK.
 - [ ] Exportación y borrado de cuenta funcionan de extremo a extremo.
 - [ ] Dependencias sin vulnerabilidades críticas conocidas.

@@ -4,17 +4,17 @@
 |---|---|
 | **UI (Interfaz de usuario)** | Pau |
 | **Aplicación móvil (Android + iOS a la vez)** | Jan |
-| **Backend + Web** | Sergi y Aleix |
+| **Backend** | Sergi y Aleix |
 
 ---
 
 ## Pau — UI
 
-Diseño de la interfaz para Web y móvil (Android e iOS: respetar las guías de cada plataforma).
+Diseño de la interfaz de la app móvil (Android e iOS: respetar las guías de cada plataforma).
 
 - [ ] Definir guía de estilo (colores, tipografía, iconos, componentes).
 - [ ] Wireframes de las pantallas principales.
-- [ ] Mockups finales (versión móvil y versión web).
+- [ ] Mockups finales (Android e iOS).
 - [ ] Pantallas: login/registro, inicio con resumen, lista de movimientos, añadir/editar movimiento, categorías y cuentas, estadísticas, presupuestos, ajustes.
 - [ ] Diseño de gráficos y estados vacíos / de error.
 - [ ] Selector de divisa, formato de importes y visualización de importes convertidos.
@@ -40,7 +40,7 @@ Implementación de la aplicación móvil para **Android e iOS a la vez**, siguie
 - [ ] Pruebas en dispositivo / emulador / simulador en ambas plataformas.
 - [ ] Generación del APK (Android) y distribución de los RC por TestFlight (iOS).
 
-## Sergi y Aleix — Backend + Web
+## Sergi y Aleix — Backend
 
 ### Backend
 
@@ -52,28 +52,18 @@ Implementación de la aplicación móvil para **Android e iOS a la vez**, siguie
 - [ ] Tabla de tipos de cambio y tarea de actualización periódica.
 - [ ] Endpoint de resumen / estadísticas mensuales con conversión a la divisa base.
 - [ ] Presupuestos.
-- [ ] Documentar la API (para que Jan y la app Web la consuman).
+- [ ] Documentar la API (para que Jan y la app móvil la consuman).
 - [ ] Validaciones y manejo de errores.
 - [ ] Exportación CSV.
-
-### Web
-
-- [ ] Elegir tecnología y crear proyecto base en `web/`.
-- [ ] Implementar las pantallas diseñadas por Pau.
-- [ ] Conexión con la API del backend.
-- [ ] CRUD de movimientos, categorías y cuentas (con divisa).
-- [ ] Selector de divisa base y formato de importes.
-- [ ] Resumen, gráficos y presupuestos.
-- [ ] Despliegue de la web.
 
 ### Sugerencia de división interna
 
 | Persona | Foco principal |
 |---|---|
 | Sergi | Backend (API + BD) |
-| Aleix | Web (con apoyo en backend) |
+| Aleix | Backend (autenticación, divisas y exportación) y apoyo a la app móvil, p. ej. iOS |
 
-*(Ajustable entre ellos según carga de trabajo.)*
+*(Ajustable entre ellos. Sin web, el backend es más pequeño y la app móvil —dos plataformas, una sola persona— es el cuello de botella: conviene que uno de los dos apoye en móvil.)*
 
 ---
 
@@ -88,13 +78,14 @@ Implementación de la aplicación móvil para **Android e iOS a la vez**, siguie
 
 ## Fuera de alcance por ahora
 
+- **Versión web**: no se desarrolla por ahora. La API se mantiene agnóstica del cliente para poder añadirla después.
 - Transferencias entre cuentas de distinta divisa.
 - Conexión con bancos reales.
 
 ## Dependencias entre áreas
 
-- **Jan** (Android + iOS) y **Sergi/Aleix (Web)** necesitan los diseños de **Pau** para construir las pantallas.
-- **Jan** y la **Web** necesitan la **API documentada** del backend; mientras tanto pueden trabajar con datos de prueba.
+- **Jan** (Android + iOS) necesita los diseños de **Pau** para construir las pantallas.
+- **Jan** necesita la **API documentada** del backend; mientras tanto puede trabajar con datos de prueba (*mocks*).
 - Acordar pronto el contrato de la API (rutas y formato JSON) para trabajar en paralelo.
 
 ## Comunicación

@@ -4,7 +4,7 @@
 
 **No abras una issue pública.** Usa el aviso privado de GitHub: pestaña *Security* → *Report a vulnerability* de este repositorio, o escribe a un mantenedor del equipo (ver [README.md](README.md)).
 
-Incluye, si puedes: descripción, pasos para reproducirlo, componente afectado (backend, web o Android) e impacto estimado.
+Incluye, si puedes: descripción, pasos para reproducirlo, componente afectado (backend o app móvil) e impacto estimado.
 
 ## Qué esperar
 

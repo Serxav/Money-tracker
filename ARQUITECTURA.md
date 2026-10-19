@@ -3,25 +3,24 @@
 Visión general de cómo encajan las piezas del Money Tracker. Las tecnologías concretas están **por decidir** por el equipo; aquí se dejan como propuesta.
 
 ```
- ┌──────────────┐        ┌──────────────┐
- │ App móvil    │        │ App Web      │
- │ Android+iOS  │        │ (Sergi/Aleix)│
- │    (Jan)     │        │              │
- └──────┬───────┘        └──────┬───────┘
-        │      HTTPS / JSON     │
-        └───────────┬───────────┘
-              ┌─────▼─────┐
-              │  Backend  │  API REST
-              │(Sergi/Aleix)
-              └─────┬─────┘
-              ┌─────▼─────┐
-              │    BD     │
-              └───────────┘
+ ┌──────────────┐
+ │ App móvil    │
+ │ Android+iOS  │
+ │    (Jan)     │
+ └──────┬───────┘
+        │  HTTPS / JSON
+  ┌─────▼─────┐
+  │  Backend  │  API REST
+  │(Sergi/Aleix)
+  └─────┬─────┘
+  ┌─────▼─────┐
+  │    BD     │
+  └───────────┘
 ```
 
-La UI (Pau) define el diseño que implementan ambas aplicaciones, de modo que mantengan una experiencia coherente.
+La UI (Pau) define el diseño de la app móvil, de modo que Android e iOS mantengan una experiencia coherente.
 
-> **La app móvil se desarrolla para Android e iOS a la vez**, y la web va en paralelo. Un único equipo móvil mantiene las dos plataformas, por lo que se recomienda una base de código compartida (ver decisiones pendientes). La API es agnóstica del cliente (REST + JSON) y la consumen los tres: Android, iOS y web.
+> **Por ahora solo hay app móvil, para Android e iOS a la vez.** No se desarrolla versión web. Un único equipo móvil mantiene las dos plataformas, por lo que se recomienda una base de código compartida (ver decisiones pendientes). La API es agnóstica del cliente (REST + JSON), de modo que una web futura podría consumirla sin cambios en el backend.
 
 ## Backend
 
@@ -50,7 +49,7 @@ Se aceptan **varias divisas** desde la primera versión. Propuesta de diseño (a
 - **Tipos de cambio** en la tabla `TipoCambio`, actualizada por el backend desde un proveedor externo (por ejemplo el BCE, que publica tasas de referencia diarias). Los clientes **nunca** llaman al proveedor: solo el backend, y sin enviarle datos del usuario.
 - **Conversión para resúmenes**: cada movimiento se convierte a la divisa base con la tasa de su fecha (o la más cercana anterior). Las cifras convertidas son **informativas**: el dato real es el importe original en su divisa.
 - **Transferencias entre cuentas de distinta divisa**: fuera del alcance de la `0.1.0`; se decidirá después (qué tasa se aplica y cómo se registra).
-- **Presentación**: formato de importes según divisa e idioma (`Intl.NumberFormat` en web, `NumberFormat` en Android, `NumberFormatter` en iOS); mostrar siempre el código o símbolo de la divisa.
+- **Presentación**: formato de importes según divisa e idioma (`NumberFormat` en Android, `NumberFormatter` en iOS); mostrar siempre el código o símbolo de la divisa.
 - **Pruebas**: tests de redondeo y de conversión con divisas de 0, 2 y 3 decimales.
 
 ### Endpoints (borrador)
@@ -70,7 +69,7 @@ Se aceptan **varias divisas** desde la primera versión. Propuesta de diseño (a
 
 ## Clientes
 
-Ambos clientes consumen la misma API y comparten pantallas principales:
+La app móvil (Android e iOS) consume la API y tiene estas pantallas principales:
 
 1. Login / registro
 2. Inicio (resumen y balance)
@@ -80,11 +79,14 @@ Ambos clientes consumen la misma API y comparten pantallas principales:
 6. Estadísticas y gráficos
 7. Presupuestos y ajustes
 
+## Fuera de alcance por ahora
+
+- **Versión web**: se podría añadir más tarde reutilizando la misma API (habría que revisar CORS, sesiones y los requisitos web de seguridad).
+
 ## Decisiones pendientes
 
 - Lenguaje y framework del backend.
 - Base de datos (SQLite, PostgreSQL, MySQL...).
-- Tecnología Web (React, Vue, Angular, HTML+JS...).
 - **App móvil (Android + iOS a la vez)**: framework. Opciones: multiplataforma con una sola base de código (Flutter, React Native o Kotlin Multiplatform; lo más realista para una persona/equipo pequeño) o dos apps nativas (Kotlin + Jetpack Compose y Swift + SwiftUI; más trabajo y doble mantenimiento).
 - Herramienta de diseño para la UI (Figma u otra).
 - Proveedor de tipos de cambio y frecuencia de actualización.

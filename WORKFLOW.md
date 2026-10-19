@@ -1,6 +1,6 @@
 # Workflow del proyecto
 
-Flujo de trabajo del Money Tracker (Backend + Web + app móvil Android/iOS): ramas, versiones, Release Candidates (RC), entornos, CI y changelog.
+Flujo de trabajo del Money Tracker (Backend + app móvil Android/iOS): ramas, versiones, Release Candidates (RC), entornos, CI y changelog.
 
 Complementa a [CONTRIBUTING.md](CONTRIBUTING.md) (reglas básicas de ramas, commits y PRs). Donde haya diferencias, **manda este documento**.
 
@@ -30,7 +30,7 @@ Regla de oro: **nada directo a `main`, `develop` ni `release/*`**. Todo entra po
 
 ## 2. Versionado
 
-Usamos [SemVer](https://semver.org/lang/es/) con **una única versión para todo el producto** (backend, web y APK comparten número): `MAJOR.MINOR.PATCH`.
+Usamos [SemVer](https://semver.org/lang/es/) con **una única versión para todo el producto** (backend y app móvil comparten número): `MAJOR.MINOR.PATCH`.
 
 | Parte | Cuándo sube |
 |---|---|
@@ -48,7 +48,7 @@ Mientras estemos en `0.x.y` el producto se considera en desarrollo: los `MINOR` 
 | `v0.2.0-rc.2` | Segundo RC (tras corregir fallos del anterior) |
 | `v0.2.0` | Versión final |
 
-La versión única cubre **backend, web y la app móvil (Android e iOS)**: todas salen con el mismo número.
+La versión única cubre **backend y la app móvil (Android e iOS)**: todas salen con el mismo número.
 
 Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un tag.
 
@@ -56,11 +56,11 @@ Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un
 
 | Versión | Objetivo |
 |---|---|
-| `0.1.0` | Login, cuentas (con divisa), categorías y CRUD de movimientos (backend + web + Android + iOS) |
+| `0.1.0` | Login, cuentas (con divisa), categorías y CRUD de movimientos (backend + Android + iOS) |
 | `0.2.0` | Resumen mensual y gráficos, con tipos de cambio y conversión a la divisa base |
 | `0.3.0` | Presupuestos y avisos |
 | `0.4.0` | Exportación CSV y pulido de UI |
-| `1.0.0` | Versión estable de entrega (Backend + Web + Android + iOS) |
+| `1.0.0` | Versión estable de entrega (Backend + Android + iOS) |
 
 La cadencia es **por hito**: se corta un RC cuando todas las issues del hito están cerradas en `develop`.
 
@@ -78,7 +78,7 @@ La cadencia es **por hito**: se corta un RC cuando todas las issues del hito est
 5. Pasa la CI y obtén **al menos 1 aprobación** de otra persona.
 6. Se fusiona con **Squash and merge**; la rama se borra.
 
-> El PR de una persona lo revisa otra distinta. Para cambios de API, revisa también quien consume esa API (Jan o quien haga la web).
+> El PR de una persona lo revisa otra distinta. Para cambios de API, revisa también quien consume esa API (Jan).
 
 ## 4. Ciclo de una release
 
@@ -94,7 +94,7 @@ git push -u origin release/0.2
 
 - `develop` queda libre para seguir con el siguiente hito.
 - En `release/0.2` **solo se admiten correcciones** (nada de funcionalidades nuevas).
-- Se actualiza el número de versión en los proyectos (backend, web, móvil) y se prepara el `CHANGELOG.md` (§7).
+- Se actualiza el número de versión en los proyectos (backend, móvil) y se prepara el `CHANGELOG.md` (§7).
 
 ### 4.2 Release Candidate
 
@@ -124,7 +124,7 @@ Un RC se promueve a final cuando **cumple los criterios de aceptación** (§5) s
    git push origin v0.2.0
    ```
 3. Se crea la **GitHub Release** con las notas del changelog y el APK adjunto.
-4. Se despliega backend y web en **prod**.
+4. Se despliega el backend en **prod** y se publica la app móvil (APK/AAB y App Store, o la vía de distribución acordada).
 
 ### 4.5 Sincronizar con develop
 
@@ -146,7 +146,7 @@ Se hace mediante PR si `develop` está protegida. Conviene hacerlo **inmediatame
 - [ ] No hay issues `rc-blocker` abiertas.
 - [ ] El checklist de QA se ha completado en staging.
 - [ ] El `CHANGELOG.md` está actualizado.
-- [ ] La versión es coherente en backend, web, Android e iOS.
+- [ ] La versión es coherente en backend, Android e iOS.
 - [ ] Las migraciones de base de datos se han probado sobre una copia de datos reales/semilla.
 
 ### Checklist de QA (plantilla por RC)
@@ -159,12 +159,6 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 - [ ] Resumen mensual con datos coherentes
 - [ ] Errores de validación con mensajes claros
 - [ ] Migración de BD desde la versión anterior
-
-**Web**
-- [ ] Flujos principales en Chrome y Firefox
-- [ ] Responsive (móvil y escritorio)
-- [ ] Estados vacíos y de error
-- [ ] Coincide con el diseño de Pau
 
 **Android**
 - [ ] Instalación del APK limpia y actualización sobre la versión anterior
@@ -179,12 +173,12 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 - [ ] Coincide con el diseño de Pau
 
 **Integración**
-- [ ] Un movimiento creado en web aparece en Android, iOS y web, y viceversa
+- [ ] Un movimiento creado en Android aparece en iOS y viceversa
 - [ ] Mismos totales en ambos clientes
 
 **Divisas**
 - [ ] Cuentas en divisas de 0, 2 y 3 decimales muestran bien los importes
-- [ ] Totales convertidos a la divisa base coinciden en web, Android e iOS
+- [ ] Totales convertidos a la divisa base coinciden en Android e iOS
 - [ ] Si fallan los tipos de cambio, la app sigue funcionando y lo indica
 
 ## 6. Entornos
@@ -200,7 +194,7 @@ Reglas:
 - Los secretos (claves, contraseñas, `.env`) viven en los *secrets* de GitHub o del hosting, nunca en el repo.
 - El APK de cada RC se adjunta como artefacto de la CI para que Jan y los testers lo instalen.
 
-> Pendiente de decidir: dónde se alojan los entornos (hosting del backend y de la web).
+> Pendiente de decidir: dónde se alojan los entornos (hosting del backend y distribución de la app móvil).
 
 ## 7. Changelog
 
@@ -249,7 +243,7 @@ Para un error grave en producción:
 
 | Evento | Qué ejecuta |
 |---|---|
-| PR hacia `develop`, `release/*` o `main` | Lint + tests de backend, web y móvil; build de comprobación |
+| PR hacia `develop`, `release/*` o `main` | Lint + tests de backend y móvil; build de comprobación |
 | Merge en `develop` | Lo anterior + despliegue en **dev** |
 | Tag `vX.Y.Z-rc.N` | Tests + build + despliegue en **staging** + APK como artefacto |
 | Tag `vX.Y.Z` | Build + despliegue en **prod** + GitHub Release con APK |
@@ -270,8 +264,7 @@ Los *checks* de la CI son obligatorios para fusionar un PR.
 | Rol | Quién | Responsabilidad |
 |---|---|---|
 | Release manager | Rotativo por versión | Corta la release, etiqueta los RC, coordina el QA y publica |
-| Backend | Sergi y Aleix | API, BD, despliegue de staging/prod |
-| Web | Sergi y Aleix | Cliente web |
+| Backend | Sergi y Aleix | API, BD, despliegue de staging/prod, apoyo a móvil |
 | Móvil (Android + iOS) | Jan | APK, TestFlight y pruebas en dispositivo |
 | UI | Pau | Revisión visual de cada RC |
 
