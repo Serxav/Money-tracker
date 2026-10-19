@@ -13,7 +13,7 @@
 
   <groupId>com.moneytracker</groupId>
   <artifactId>money-tracker-backend</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>Money Tracker backend</name>
   <description>API REST del Money Tracker</description>
 

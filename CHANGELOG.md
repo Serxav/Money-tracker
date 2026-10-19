@@ -4,6 +4,10 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-19
+
+Versión alfa de desarrollo: backend y app móvil con registro, cuentas multidivisa, categorías y movimientos.
+
 ### Añadido
 - **App móvil 0.1 (alfa de desarrollo)** para Android e iOS con React Native + Expo SDK 58 + TypeScript ([mobile/README.md](mobile/README.md)):
   - Registro, login, sesión persistente segura (Keychain/Keystore) y cierre de sesión.
@@ -28,7 +32,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 - App móvil planificada para Android e iOS a la vez. Sin versión web por ahora.
 - Soporte multidivisa en el diseño (divisa por cuenta, divisa base del usuario y tipos de cambio).
 
-### Pendiente para cerrar la 0.1.0
+### Pendiente (QA del RC y siguientes versiones)
 - Probar la app en dispositivos reales Android e iOS (QA del RC).
 - RLS en PostgreSQL como segunda barrera de autorización.
 - Hosting de dev/staging y despliegue automático.
