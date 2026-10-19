@@ -112,7 +112,9 @@ Se aceptan **varias divisas** desde la primera versión. Propuesta de diseño (a
 - La app **nunca** habla directamente con la base de datos ni lleva credenciales de ella: solo con la API.
 - **Row-Level Security (RLS)**: si el motor la soporta (p. ej. PostgreSQL), se activa en las tablas con datos de usuario, con políticas separadas de lectura, inserción, actualización y borrado, como segunda barrera además de la autorización en el servidor. Si se eligiera un servicio gestionado (BaaS) en el que el cliente accede directamente a los datos, RLS pasa a ser **imprescindible** y las claves públicas del cliente deben tener privilegios mínimos; las claves de servicio y administración viven solo en el servidor.
 
-### Endpoints (borrador)
+### Endpoints
+
+Todos con prefijo `/v1`. Los implementados en la `0.1` están en el contrato [`backend/openapi.yaml`](backend/openapi.yaml); el resto son el plan de los siguientes hitos.
 
 | Método | Ruta | Descripción |
 |---|---|---|
@@ -122,10 +124,14 @@ Se aceptan **varias divisas** desde la primera versión. Propuesta de diseño (a
 | GET/POST | `/categories` | Listar / crear categorías |
 | GET/POST | `/transactions` | Listar (con filtros) / crear movimientos |
 | PUT/DELETE | `/transactions/{id}` | Editar / borrar movimiento |
-| GET | `/summary?month=YYYY-MM&currency=EUR` | Resumen mensual (convertido a la divisa pedida; por defecto, la base del usuario) |
+| POST | `/auth/refresh`, `/auth/logout` | Renovar sesión (rota el token) / cerrarla |
+| GET/PATCH/DELETE | `/me` | Perfil, divisa base e idioma; borrar cuenta y datos |
+| GET/PATCH/DELETE | `/accounts/{id}`, `/categories/{id}` | Detalle, edición y borrado |
+| GET | `/transactions/{id}` | Detalle de un movimiento |
+| GET | `/summary?month=YYYY-MM&currency=EUR` | Resumen mensual (`0.2.0`) |
 | GET | `/currencies` | Divisas soportadas |
-| GET | `/exchange-rates?from=USD&to=EUR&date=YYYY-MM-DD` | Tipo de cambio de referencia |
-| GET/POST | `/budgets` | Presupuestos |
+| GET | `/exchange-rates?from=USD&to=EUR&date=YYYY-MM-DD` | Tipo de cambio de referencia (`0.2.0`) |
+| GET/POST | `/budgets` | Presupuestos (`0.3.0`) |
 
 ## Clientes
 
@@ -166,9 +172,9 @@ Se diseña para poder crecer, pero sin sobredimensionar al principio:
 
 ## Decisiones pendientes
 
-- ~~Lenguaje y framework del backend~~: **decidido, Java (Spring Boot)** — ver [ADR 0001](docs/adr/0001-stack-backend-java.md). Pendiente: versión de Java y herramienta de compilación.
-- Base de datos (SQLite, PostgreSQL, MySQL...). Recomendable un motor con RLS y buen soporte de transacciones (p. ej. PostgreSQL).
-- **API propia o servicio gestionado (BaaS)**: con API propia el cliente nunca toca la BD (recomendado); con BaaS, RLS es obligatorio.
+- ~~Lenguaje y framework del backend~~: **decidido, Java (Spring Boot)** — ver [ADR 0001](docs/adr/0001-stack-backend-java.md).
+- ~~Base de datos~~: **PostgreSQL 17** con Flyway; ~~herramienta de compilación~~: **Maven**; Java **21** — ver [ADR 0002](docs/adr/0002-base-de-datos-y-build.md) (aceptado para la alfa).
+- **API propia o BaaS**: la `0.1` usa **API propia** (la app nunca accede a la BD).
 - Versiones mínimas soportadas de Android e iOS.
 - Si la app usará notificaciones push o *deep links* (aumentan la superficie de ataque y las pruebas).
 - Objetivos de disponibilidad y recuperación (RTO/RPO) para la `1.0.0`.

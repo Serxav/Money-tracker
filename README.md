@@ -4,7 +4,7 @@ Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open 
 
 ## 📌 Estado
 
-En fase de planificación. Documentación y workflow definidos; stack tecnológico y diseño pendientes de cerrar antes de empezar el desarrollo. Plataforma: **app móvil para Android e iOS** (desarrollo simultáneo). La web queda fuera de alcance por ahora.
+**Versión `0.1.0` en desarrollo (alfa).** Backend listo en `develop` ([backend/README.md](backend/README.md)); falta la app móvil, pendiente de elegir framework. Ver [CHANGELOG.md](CHANGELOG.md).
 
 ## 💰 Sobre el proyecto
 
