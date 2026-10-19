@@ -4,7 +4,7 @@
 |---|---|
 | **UI (Interfaz de usuario)** | Pau |
 | **Aplicación Android** | Jan |
-| *iOS* | *Fase futura (sin asignar)* |
+| **Aplicación iOS (última fase)** | Por confirmar (propuesta: Jan) |
 | **Backend + Web** | Sergi y Aleix |
 
 ---
@@ -82,11 +82,21 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 | 1. Diseño y base | Guía de estilo + wireframes; proyectos base; modelo de datos y API definida | Pau / Jan / Sergi y Aleix |
 | 2. Núcleo | Login, CRUD de movimientos, categorías y cuentas (backend + clientes) | Todos |
 | 3. Valor añadido | Resumen, gráficos, presupuestos | Todos |
-| 4. Cierre | Pruebas, pulido de UI, documentación, entrega | Todos |
+| 4. iOS | App iOS con el diseño de Pau sobre la API ya estable | Por confirmar (propuesta: Jan) + Pau (diseño) |
+| 5. Cierre | Pruebas, pulido de UI, documentación, entrega | Todos |
+
+## iOS (última fase)
+
+Se desarrolla al final, cuando backend, web y Android estén estables.
+
+- [ ] Confirmar responsable, tecnología y equipo/cuenta de desarrollo (Mac, cuenta de Apple).
+- [ ] Adaptar el diseño de Pau a iOS (guías de Apple).
+- [ ] Implementar las pantallas y la conexión con la API.
+- [ ] Almacenamiento seguro (Keychain), formato de importes por divisa e idioma.
+- [ ] Pruebas en dispositivo/simulador y distribución de los RC por TestFlight.
 
 ## Fuera de alcance por ahora
 
-- **iOS**: se contempla a futuro, tras la `1.0.0`. No se desarrolla ahora; la API se diseña para poder soportarlo sin cambios.
 - Transferencias entre cuentas de distinta divisa.
 - Conexión con bancos reales.
 

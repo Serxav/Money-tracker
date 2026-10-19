@@ -4,7 +4,7 @@ Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open 
 
 ## 📌 Estado
 
-En fase de planificación. Documentación y workflow definidos; stack tecnológico y diseño pendientes de cerrar antes de empezar el desarrollo. Plataformas iniciales: **Web y Android** (iOS a futuro).
+En fase de planificación. Documentación y workflow definidos; stack tecnológico y diseño pendientes de cerrar antes de empezar el desarrollo. Plataformas: **Web y Android**, y **iOS en la última fase**.
 
 ## 💰 Sobre el proyecto
 

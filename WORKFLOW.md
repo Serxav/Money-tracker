@@ -48,7 +48,7 @@ Mientras estemos en `0.x.y` el producto se considera en desarrollo: los `MINOR` 
 | `v0.2.0-rc.2` | Segundo RC (tras corregir fallos del anterior) |
 | `v0.2.0` | Versión final |
 
-La versión única cubre **backend, web y Android**. Cuando se incorpore iOS (fase futura, tras la `1.0.0`) pasará a formar parte de la misma versión.
+La versión única cubre **backend, web y Android** y, cuando llegue su fase (la última), **iOS**.
 
 Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un tag.
 
@@ -60,7 +60,8 @@ Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un
 | `0.2.0` | Resumen mensual y gráficos, con tipos de cambio y conversión a la divisa base |
 | `0.3.0` | Presupuestos y avisos |
 | `0.4.0` | Exportación CSV y pulido de UI |
-| `1.0.0` | Versión estable de entrega |
+| `0.5.0` | App iOS (última fase de desarrollo) |
+| `1.0.0` | Versión estable de entrega (Backend + Web + Android + iOS) |
 
 La cadencia es **por hito**: se corta un RC cuando todas las issues del hito están cerradas en `develop`.
 

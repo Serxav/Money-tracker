@@ -20,7 +20,7 @@ Visión general de cómo encajan las piezas del Money Tracker. Las tecnologías 
 
 La UI (Pau) define el diseño que implementan ambas aplicaciones, de modo que mantengan una experiencia coherente.
 
-> **iOS queda para una fase futura.** No se desarrolla ahora, pero la API debe ser agnóstica del cliente (REST + JSON, sin depender de Android ni de la web) para que una app iOS pueda consumirla sin cambios en el backend.
+> **La app iOS se desarrolla al final** (última fase del plan, tras Web y Android). Por eso la API debe ser agnóstica del cliente (REST + JSON, sin depender de Android ni de la web) y así la app iOS la consuma sin cambios en el backend.
 
 ## Backend
 
@@ -91,4 +91,4 @@ Ambos clientes consumen la misma API y comparten pantallas principales:
 - Lista inicial de divisas soportadas.
 - Idiomas de la app (español, catalán, inglés...).
 - Si Android funciona sin conexión y sincroniza después.
-- iOS: se retoma tras la `1.0.0`; decidir entonces tecnología (nativa SwiftUI o multiplataforma).
+- iOS (última fase): tecnología (nativa SwiftUI o multiplataforma), quién la desarrolla y cómo se prueba/distribuye (requiere Mac y cuenta de desarrollador de Apple, TestFlight para los RC).

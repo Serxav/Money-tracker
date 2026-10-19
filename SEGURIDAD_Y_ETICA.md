@@ -99,7 +99,7 @@ Referencia: [OWASP MASVS](https://opensecurityarchitecture.org/frameworks/owasp-
 - **Bloqueo de la app**: DEBERÍA ofrecer bloqueo opcional con biometría / PIN del dispositivo.
 - **Permisos**: pedir solo los estrictamente necesarios (la app no necesita contactos, ubicación ni SMS).
 - **Release**: firma del APK con una clave protegida (no en el repo), ofuscación/minificación (R8) y `debuggable=false`.
-- **iOS (fase futura)**: cuando se desarrolle se aplicarán los mismos requisitos de MASVS (Keychain para secretos, ATS/TLS, sin datos sensibles en logs ni en copias).
+- **iOS (última fase)**: al desarrollarla se aplicarán los mismos requisitos de MASVS (Keychain para secretos, ATS/TLS, sin datos sensibles en logs ni en copias).
 - **Dependencias y SDKs de terceros**: cada SDK (analítica, anuncios, crash reporting) es un posible fugitivo de datos. **No** incluir SDKs de publicidad ni analítica que envíen datos financieros a terceros.
 
 ---
