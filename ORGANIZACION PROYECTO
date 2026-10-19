@@ -1,6 +1,15 @@
 TAREAS:
 
-- PAU: UI(Interfaz de usuario)
+- PAU: UI(Interfaz de usuario) 
 - JAN: Aplicacion (Android, IOS)
 - SERGI: Backend + desktop
 - ALEIX: Backend + desktop
+
+TAREAS EN PROFUNDIDAD
+
+SERGI I ALEIX 
+  - Backend 
+    - Bases de datos i integracion IA con api KEY
+    - Autenticacion y usuarios
+    - Seguridad
+    - Infraestructura
