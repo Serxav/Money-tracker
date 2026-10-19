@@ -4,6 +4,7 @@
 |---|---|
 | **UI (Interfaz de usuario)** | Pau |
 | **Aplicación Android** | Jan |
+| *iOS* | *Fase futura (sin asignar)* |
 | **Backend + Web** | Sergi y Aleix |
 
 ---
@@ -17,6 +18,7 @@ Diseño de la interfaz para Web y Android.
 - [ ] Mockups finales (versión móvil y versión web).
 - [ ] Pantallas: login/registro, inicio con resumen, lista de movimientos, añadir/editar movimiento, categorías y cuentas, estadísticas, presupuestos, ajustes.
 - [ ] Diseño de gráficos y estados vacíos / de error.
+- [ ] Selector de divisa, formato de importes y visualización de importes convertidos.
 - [ ] Modo claro / oscuro (opcional).
 - [ ] Entregar assets (iconos, logo) a Jan, Sergi y Aleix en `design/`.
 - [ ] Revisar que las implementaciones respetan el diseño.
@@ -29,7 +31,8 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 - [ ] Implementar las pantallas diseñadas por Pau.
 - [ ] Conexión con la API del backend (login, movimientos, categorías, cuentas).
 - [ ] Gestión de sesión del usuario.
-- [ ] CRUD de movimientos, categorías y cuentas.
+- [ ] CRUD de movimientos, categorías y cuentas (cada cuenta con su divisa).
+- [ ] Formato de importes según divisa e idioma.
 - [ ] Pantalla de resumen y gráficos.
 - [ ] Presupuestos y avisos.
 - [ ] Manejo de errores y estados sin conexión.
@@ -43,7 +46,9 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 - [ ] Diseñar e implementar la base de datos (usuarios, cuentas, categorías, movimientos, presupuestos).
 - [ ] Autenticación (registro, login, tokens).
 - [ ] Endpoints CRUD de cuentas, categorías y movimientos.
-- [ ] Endpoint de resumen / estadísticas mensuales.
+- [ ] Divisas por cuenta e importes en unidad menor (ISO 4217).
+- [ ] Tabla de tipos de cambio y tarea de actualización periódica.
+- [ ] Endpoint de resumen / estadísticas mensuales con conversión a la divisa base.
 - [ ] Presupuestos.
 - [ ] Documentar la API (para que Jan y la app Web la consuman).
 - [ ] Validaciones y manejo de errores.
@@ -54,7 +59,8 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 - [ ] Elegir tecnología y crear proyecto base en `web/`.
 - [ ] Implementar las pantallas diseñadas por Pau.
 - [ ] Conexión con la API del backend.
-- [ ] CRUD de movimientos, categorías y cuentas.
+- [ ] CRUD de movimientos, categorías y cuentas (con divisa).
+- [ ] Selector de divisa base y formato de importes.
 - [ ] Resumen, gráficos y presupuestos.
 - [ ] Despliegue de la web.
 
@@ -77,6 +83,12 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 | 2. Núcleo | Login, CRUD de movimientos, categorías y cuentas (backend + clientes) | Todos |
 | 3. Valor añadido | Resumen, gráficos, presupuestos | Todos |
 | 4. Cierre | Pruebas, pulido de UI, documentación, entrega | Todos |
+
+## Fuera de alcance por ahora
+
+- **iOS**: se contempla a futuro, tras la `1.0.0`. No se desarrolla ahora; la API se diseña para poder soportarlo sin cambios.
+- Transferencias entre cuentas de distinta divisa.
+- Conexión con bancos reales.
 
 ## Dependencias entre áreas
 

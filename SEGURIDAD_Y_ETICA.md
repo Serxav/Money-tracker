@@ -62,7 +62,8 @@ Referencia: [OWASP API Security Top 10 (2023)](https://apisecurity.io/owasp-api-
 - **DEBE** usar **consultas parametrizadas / ORM**; prohibido construir SQL concatenando texto (inyección SQL).
 - **DEBE** escapar o sanear lo que se muestre en la web (descripciones libres) para evitar XSS.
 - **DEBE** devolver errores genéricos al cliente (sin *stack traces*, sin nombres de tablas) y registrar el detalle solo en el servidor.
-- **DEBERÍA** usar importes en **céntimos enteros** o tipos decimales exactos, nunca `float`, para evitar errores de redondeo.
+- **DEBERÍA** usar importes en **unidades menores enteras** (céntimos) o tipos decimales exactos, nunca `float`, para evitar errores de redondeo. Al haber varias divisas, el número de decimales depende de la divisa (ISO 4217).
+- **Divisas y tipos de cambio**: validar que el código de divisa sea ISO 4217 y esté soportado. Los tipos de cambio los obtiene **solo el backend** de un proveedor externo, **sin enviarle datos del usuario**; validar y acotar lo que devuelve (API10), tener un valor de reserva si el proveedor falla y no confiar en tasas enviadas por el cliente.
 - **CORS**: permitir solo los orígenes de nuestra web, nunca `*` con credenciales.
 - **Cabeceras de seguridad** en la web: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`/`frame-ancestors`.
 - **Base de datos**: usuario de aplicación con permisos mínimos, no accesible desde internet, copias de seguridad cifradas y restauración probada.
@@ -98,6 +99,7 @@ Referencia: [OWASP MASVS](https://opensecurityarchitecture.org/frameworks/owasp-
 - **Bloqueo de la app**: DEBERÍA ofrecer bloqueo opcional con biometría / PIN del dispositivo.
 - **Permisos**: pedir solo los estrictamente necesarios (la app no necesita contactos, ubicación ni SMS).
 - **Release**: firma del APK con una clave protegida (no en el repo), ofuscación/minificación (R8) y `debuggable=false`.
+- **iOS (fase futura)**: cuando se desarrolle se aplicarán los mismos requisitos de MASVS (Keychain para secretos, ATS/TLS, sin datos sensibles en logs ni en copias).
 - **Dependencias y SDKs de terceros**: cada SDK (analítica, anuncios, crash reporting) es un posible fugitivo de datos. **No** incluir SDKs de publicidad ni analítica que envíen datos financieros a terceros.
 
 ---
@@ -151,7 +153,7 @@ Más allá de la ley, estas son decisiones que tomamos como equipo:
 3. **Honestidad en los datos**: gráficos, balances y presupuestos deben ser correctos y no inducir a error. Los cálculos tienen tests.
 4. **No es asesoramiento financiero**: la app informa del gasto del propio usuario; no recomienda inversiones ni productos. Evitar redacciones que lo parezcan.
 5. **Sin sesgos ni perfilado**: si en el futuro se añaden sugerencias automáticas o categorización con IA, deben ser explicables, opcionales y no discriminar. Los datos de usuarios no se envían a servicios de IA de terceros sin consentimiento explícito.
-6. **Accesibilidad e inclusión**: contraste, tamaños de texto, soporte de lector de pantalla, lenguaje claro, formatos de moneda/fecha/idioma configurables.
+6. **Accesibilidad e inclusión**: contraste, tamaños de texto, soporte de lector de pantalla, lenguaje claro, formatos de moneda/fecha/idioma configurables. Mostrar siempre el importe original junto al convertido y avisar de que los importes convertidos son aproximados.
 7. **Bienestar de la persona**: los avisos de presupuesto informan, no culpabilizan ni generan ansiedad.
 8. **Licencias y código ajeno**: respetar las licencias de las librerías (el proyecto es MIT) y no copiar código sin atribución. Si usamos herramientas de IA para programar, **revisar** el código generado como cualquier otro (puede contener fallos de seguridad o código con licencia).
 9. **Divulgación responsable**: quien encuentre una vulnerabilidad la comunica por canal privado al equipo (no en una issue pública) y se corrige antes de divulgarla. Añadir un `SECURITY.md` con el contacto.

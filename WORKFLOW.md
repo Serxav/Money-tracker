@@ -48,14 +48,16 @@ Mientras estemos en `0.x.y` el producto se considera en desarrollo: los `MINOR` 
 | `v0.2.0-rc.2` | Segundo RC (tras corregir fallos del anterior) |
 | `v0.2.0` | Versión final |
 
+La versión única cubre **backend, web y Android**. Cuando se incorpore iOS (fase futura, tras la `1.0.0`) pasará a formar parte de la misma versión.
+
 Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un tag.
 
 ### Hitos (propuesta inicial)
 
 | Versión | Objetivo |
 |---|---|
-| `0.1.0` | Login, cuentas, categorías y CRUD de movimientos (backend + web + Android) |
-| `0.2.0` | Resumen mensual y gráficos |
+| `0.1.0` | Login, cuentas (con divisa), categorías y CRUD de movimientos (backend + web + Android) |
+| `0.2.0` | Resumen mensual y gráficos, con tipos de cambio y conversión a la divisa base |
 | `0.3.0` | Presupuestos y avisos |
 | `0.4.0` | Exportación CSV y pulido de UI |
 | `1.0.0` | Versión estable de entrega |
@@ -173,6 +175,11 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 **Integración**
 - [ ] Un movimiento creado en web aparece en Android y viceversa
 - [ ] Mismos totales en ambos clientes
+
+**Divisas**
+- [ ] Cuentas en divisas de 0, 2 y 3 decimales muestran bien los importes
+- [ ] Totales convertidos a la divisa base coinciden en web y Android
+- [ ] Si fallan los tipos de cambio, la app sigue funcionando y lo indica
 
 ## 6. Entornos
 
