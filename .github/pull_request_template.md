@@ -2,7 +2,7 @@
 
 ## ¿Cómo probarlo?
 
-> Rama destino: `develop` (salvo PRs de release/hotfix hacia `main`; ver WORKFLOW.md).
+> Rama destino: la `desarrollo/X.Y.Z/RCn` abierta (p. ej. `desarrollo/0.1.0/RC1`). Solo las versiones finales y los `hotfix/*` van a `main` (ver WORKFLOW.md).
 
 ## Checklist
 - [ ] Funciona en mi equipo (formato, lint y tests pasan)

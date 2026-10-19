@@ -1,32 +1,34 @@
 # Workflow del proyecto
 
-Flujo de trabajo del Money Tracker (Backend + app móvil Android/iOS): ramas, versiones, Release Candidates (RC), entornos, CI y changelog.
+Flujo de trabajo del Money Tracker (Backend + app móvil Android/iOS): ramas, versiones, Release Candidates (RC), entornos, CI y changelog. Estructura de ramas: `main` → `desarrollo/X.Y.Z/RCn`.
 
 Complementa a [CONTRIBUTING.md](CONTRIBUTING.md) (reglas básicas de ramas, commits y PRs). Donde haya diferencias, **manda este documento**.
 
 ## 1. Resumen
 
 ```
-feat/*  fix/*  docs/*
-      \   |   /
-       develop ──────────┬───────────────────────────────►  (integración, entorno dev)
-                         │ corte de versión
-                    release/0.2 ── rc.1 ── rc.2 ── final ──►  (estabilización, entorno staging)
-                                     │      │        │
-                                  v0.2.0-rc.1 …   v0.2.0
-                                                     │
- main ───────────────────────────────────────────────┴────►  (solo versiones finales, entorno prod)
+main                                   solo versiones finales (vX.Y.Z) · entorno prod
+└── desarrollo/
+    └── 0.1.0/
+        ├── RC1    ← feat/*, fix/*, docs/*   integración de la versión · entorno dev
+        │            tag v0.1.0-rc.1 → QA en staging
+        └── RC2    ← fix/* (si RC1 no pasa la QA)
+                     tag v0.1.0-rc.2 → QA ─┐
+                                           └─► PR a main · tag v0.1.0
 ```
 
 | Rama | Contenido | Entorno | Quién escribe |
 |---|---|---|---|
-| `main` | Solo versiones finales (`vX.Y.Z`). Siempre desplegable. | prod | Merge desde `release/*` o `hotfix/*` |
-| `develop` | Siguiente versión en construcción. | dev | PRs de `feat/*`, `fix/*`, `docs/*` |
-| `release/X.Y` | Versión congelada en estabilización (RCs). | staging | Solo fixes de estabilización |
-| `feat/*`, `fix/*`, `docs/*` | Trabajo de cada tarea. | — | Quien tenga la tarea |
+| `main` | Solo versiones finales (`vX.Y.Z`). Siempre desplegable. | prod | PR desde la última `desarrollo/X.Y.Z/RCn` aprobada o desde `hotfix/*` |
+| `desarrollo/X.Y.Z/RCn` | La versión `X.Y.Z` en construcción y su candidata número `n`. | dev | PRs de `feat/*`, `fix/*`, `docs/*`, `chore/*`, `ci/*` |
+| `feat/*`, `fix/*`, `docs/*`, `chore/*`, `ci/*` | Trabajo de cada tarea. | — | Quien tenga la tarea |
 | `hotfix/X.Y.Z` | Arreglo urgente sobre producción. | — | Quien lo detecte |
 
-Regla de oro: **nada directo a `main`, `develop` ni `release/*`**. Todo entra por Pull Request con revisión.
+Reglas:
+
+- **Nada directo a `main` ni a `desarrollo/**`**. Todo entra por Pull Request con revisión.
+- Solo hay **una rama `desarrollo/X.Y.Z/RCn` abierta por versión**: la del RC más alto. Las anteriores quedan congeladas como histórico.
+- Git no permite tener a la vez una rama `desarrollo/0.1.0` y otra `desarrollo/0.1.0/RC1` (una ruta no puede ser rama y "carpeta" a la vez): por eso **no se crean ramas `desarrollo/X.Y.Z`** sueltas, siempre con su `/RCn`.
 
 ## 2. Versionado
 
@@ -40,26 +42,26 @@ Usamos [SemVer](https://semver.org/lang/es/) con **una única versión para todo
 
 Mientras estemos en `0.x.y` el producto se considera en desarrollo: los `MINOR` pueden incluir cambios incompatibles.
 
-### Tags
-
-| Tag | Significado |
-|---|---|
-| `v0.2.0-rc.1` | Primer Release Candidate de la 0.2.0 |
-| `v0.2.0-rc.2` | Segundo RC (tras corregir fallos del anterior) |
-| `v0.2.0` | Versión final |
-
 La versión única cubre **backend y la app móvil (Android e iOS)**: todas salen con el mismo número.
 
-Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un tag.
+### Ramas y tags
+
+| Rama | Tag que la cierra | Significado |
+|---|---|---|
+| `desarrollo/0.2.0/RC1` | `v0.2.0-rc.1` | Primer Release Candidate de la 0.2.0 |
+| `desarrollo/0.2.0/RC2` | `v0.2.0-rc.2` | Segundo RC, tras corregir los fallos de la QA del primero |
+| `main` | `v0.2.0` | Versión final |
+
+El número de la rama y el del tag van siempre a la par (`RCn` ↔ `rc.n`). Los tags son inmutables: si un RC falla, se crea el siguiente; nunca se reescribe un tag.
 
 ### Documento de scope por versión
 
 **Cada versión tiene su `docs/versiones/X.Y.Z.md`** con lo que entra, lo que no entra (y cuándo se espera), las limitaciones conocidas, los criterios de aceptación y la compatibilidad. Se parte de [`docs/versiones/PLANTILLA.md`](docs/versiones/PLANTILLA.md):
 
-1. Se **crea en `develop`** al empezar el hito, con el scope previsto.
+1. Se **crea en `desarrollo/X.Y.Z/RC1`** al empezar el hito, con el scope previsto.
 2. Se **actualiza** si el scope cambia durante el desarrollo (mediante PR, como cualquier cambio).
-3. Se **cierra en `release/X.Y`** al cortar la versión: refleja lo que realmente entra y su estado (RC o publicada).
-4. Un RC o una versión final **no se publica sin su documento de scope** (ver §5).
+3. Se **cierra** al etiquetar cada RC: refleja lo que realmente entra y su estado (RCn o publicada).
+4. Un RC o una versión final **no se publica sin su documento de scope** (ver §5). Junto a él se guarda el informe de QA (`docs/versiones/X.Y.Z-qa.md`).
 
 ### Hitos (propuesta inicial)
 
@@ -71,61 +73,70 @@ Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un
 | `0.4.0` | Exportación CSV y pulido de UI |
 | `1.0.0` | Versión estable de entrega (Backend + Android + iOS) |
 
-La cadencia es **por hito**: se corta un RC cuando todas las issues del hito están cerradas en `develop`.
+La cadencia es **por hito**: se etiqueta el RC cuando todas las issues del hito están cerradas en la rama `desarrollo/X.Y.Z/RCn`.
 
 ## 3. Trabajo diario (features y fixes)
 
 1. Asígnate una **issue** (nadie trabaja sin issue asignada).
-2. Crea la rama **desde `develop`**:
+2. Crea la rama **desde la rama de desarrollo abierta** de la versión (p. ej. `desarrollo/0.2.0/RC1`):
    ```bash
-   git checkout develop && git pull
+   git checkout desarrollo/0.2.0/RC1 && git pull
    git checkout -b feat/lista-movimientos
    ```
-   Prefijos: `feat/`, `fix/`, `docs/`.
+   Prefijos: `feat/`, `fix/`, `docs/`, `chore/`, `ci/`.
 3. Haz commits pequeños con prefijo (ver §8).
-4. Abre un **PR hacia `develop`** rellenando la plantilla y enlazando la issue (`Closes #N`).
+4. Abre un **PR hacia esa rama `desarrollo/X.Y.Z/RCn`** rellenando la plantilla y enlazando la issue (`Closes #N`).
 5. Pasa la CI y obtén **al menos 1 aprobación** de otra persona.
-6. Se fusiona con **Squash and merge**; la rama se borra.
+6. Se fusiona con **Squash and merge**; la rama de la tarea se borra.
 
 > El PR de una persona lo revisa otra distinta. Para cambios de API, revisa también quien consume esa API (Jan).
 
-## 4. Ciclo de una release
+## 4. Ciclo de una versión
 
-### 4.1 Corte de versión
+### 4.1 Empezar una versión
 
-Cuando el hito está completo en `develop`:
+Cuando la versión anterior está publicada en `main`:
 
 ```bash
-git checkout develop && git pull
-git checkout -b release/0.2
-git push -u origin release/0.2
+git checkout main && git pull
+git checkout -b desarrollo/0.2.0/RC1
+git push -u origin desarrollo/0.2.0/RC1
 ```
 
-- `develop` queda libre para seguir con el siguiente hito.
-- En `release/0.2` **solo se admiten correcciones** (nada de funcionalidades nuevas).
-- Se actualiza el número de versión en los proyectos (backend, móvil), se prepara el `CHANGELOG.md` (§7) y se cierra el documento de scope `docs/versiones/X.Y.Z.md` (§2).
+- Se crea en ella `docs/versiones/0.2.0.md` con el scope previsto (§2).
+- Se sube la versión de los proyectos a `0.2.0-SNAPSHOT` (backend) / `0.2.0` (app).
+- Se apunta Dependabot (`.github/dependabot.yml`, `target-branch`) a la nueva rama.
 
 ### 4.2 Release Candidate
 
-```bash
-git tag -a v0.2.0-rc.1 -m "Release candidate 0.2.0-rc.1"
-git push origin v0.2.0-rc.1
-```
+Cuando el hito está completo en `desarrollo/0.2.0/RC1`:
 
-El tag dispara la CI, que construye los artefactos y **despliega en staging** (§6).
+1. Se cierra la versión en esa rama (PR): versión sin `-SNAPSHOT`, `CHANGELOG.md` (§7) y documento de scope.
+2. Se etiqueta el último commit de la rama:
+   ```bash
+   git checkout desarrollo/0.2.0/RC1 && git pull
+   git tag -a v0.2.0-rc.1 -m "Release candidate 0.2.0-rc.1"
+   git push origin v0.2.0-rc.1
+   ```
+3. El tag dispara la CI, que construye los artefactos y **despliega en staging** (§6).
 
 ### 4.3 QA del RC
 
-- Se ejecuta el checklist de §5 sobre staging.
+- Se ejecuta el checklist de §5 sobre staging y se documenta en `docs/versiones/X.Y.Z-qa.md`.
 - Los fallos se registran como issues con la etiqueta `rc-blocker` (impide publicar) o `rc-minor` (se puede posponer).
-- Cada fix va en una rama `fix/*` **hacia `release/0.2`** (PR con Squash and merge) y se vuelve a integrar en `develop` (§4.5).
-- Con los blockers corregidos se crea el siguiente RC: `v0.2.0-rc.2`, y se repite el QA.
+- **Si el RC no pasa la QA**, se abre la siguiente candidata desde la anterior y los arreglos van allí:
+  ```bash
+  git checkout desarrollo/0.2.0/RC1 && git pull
+  git checkout -b desarrollo/0.2.0/RC2
+  git push -u origin desarrollo/0.2.0/RC2
+  ```
+  Cada arreglo va en una rama `fix/*` con PR **hacia `desarrollo/0.2.0/RC2`**. En esta rama **solo se admiten correcciones** (nada de funcionalidades nuevas). Con los blockers corregidos se etiqueta `v0.2.0-rc.2` y se repite la QA.
 
 ### 4.4 Publicación final
 
 Un RC se promueve a final cuando **cumple los criterios de aceptación** (§5) sin blockers abiertos:
 
-1. PR de `release/0.2` → `main` (aprobación de todo el equipo o de al menos 2 personas).
+1. PR de la última `desarrollo/X.Y.Z/RCn` → `main` (aprobación de al menos 2 personas).
 2. Tras el merge, se etiqueta `main`:
    ```bash
    git checkout main && git pull
@@ -134,18 +145,7 @@ Un RC se promueve a final cuando **cumple los criterios de aceptación** (§5) s
    ```
 3. Se crea la **GitHub Release** con las notas del changelog y el APK adjunto.
 4. Se despliega el backend en **prod** y se publica la app móvil (APK/AAB y App Store, o la vía de distribución acordada).
-
-### 4.5 Sincronizar con develop
-
-Los fixes hechos en la release deben volver a `develop`:
-
-```bash
-git checkout develop && git pull
-git merge --no-ff main     # o release/0.2 si aún no se ha fusionado
-git push
-```
-
-Se hace mediante PR si `develop` está protegida. Conviene hacerlo **inmediatamente tras publicar** para no perder correcciones.
+5. Se empieza la siguiente versión desde `main` (§4.1). Las ramas `desarrollo/X.Y.Z/RCn` ya publicadas se conservan como histórico (o se borran si el equipo lo prefiere; los tags se mantienen siempre).
 
 ## 5. QA y criterios de aceptación de un RC
 
@@ -207,8 +207,8 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 
 | Entorno | Rama / tag | Despliegue | Datos | Uso |
 |---|---|---|---|---|
-| **dev** | `develop` | Automático en cada merge | De prueba, se pueden borrar | Integración continua entre el equipo |
-| **staging** | `release/*` (tags `-rc.N`) | Automático al crear un tag RC | Copia anonimizada o semilla | QA del RC |
+| **dev** | `desarrollo/X.Y.Z/RCn` abierta | Automático en cada merge | De prueba, se pueden borrar | Integración continua entre el equipo |
+| **staging** | Tags `vX.Y.Z-rc.N` | Automático al crear un tag RC | Copia anonimizada o semilla | QA del RC |
 | **prod** | `main` (tags `vX.Y.Z`) | Al publicar la versión final | Reales | Usuarios |
 
 Reglas:
@@ -235,7 +235,7 @@ Se mantiene en `CHANGELOG.md` con el formato [Keep a Changelog](https://keepacha
 
 - Los PRs `feat:` van en **Añadido/Cambiado**, los `fix:` en **Corregido**.
 - Cada PR relevante añade su línea bajo `[Unreleased]`, o bien quien corta la release la genera a partir de los commits.
-- Al cortar `release/X.Y`, `[Unreleased]` pasa a la sección de la versión con su fecha.
+- Al etiquetar el primer RC de la versión, `[Unreleased]` pasa a la sección de la versión con su fecha.
 - Los RC **no** tienen sección propia: se acumulan en la de la versión.
 
 ## 8. Commits
@@ -260,14 +260,14 @@ Para un error grave en producción:
 1. Rama desde `main`: `git checkout -b hotfix/0.2.1 main`.
 2. Corrige, actualiza el changelog y abre PR hacia `main`.
 3. Etiqueta `v0.2.1` (si hay tiempo, antes `v0.2.1-rc.1` en staging).
-4. Fusiona también en `develop` (y en la `release/*` abierta, si existe).
+4. Lleva también el arreglo a la rama `desarrollo/X.Y.Z/RCn` abierta, si existe (PR).
 
 ## 10. CI con GitHub Actions
 
 | Evento | Qué ejecuta |
 |---|---|
-| PR hacia `develop`, `release/*` o `main` | Formato + lint + comprobación de tipos, tests de backend y móvil, análisis estático (p. ej. CodeQL), análisis de dependencias, escaneo de secretos, validación del `openapi.yaml`; build de comprobación |
-| Merge en `develop` | Lo anterior + despliegue en **dev** |
+| PR hacia `desarrollo/**` o `main` | Formato + lint + comprobación de tipos, tests de backend y móvil, análisis estático (p. ej. CodeQL), análisis de dependencias, escaneo de secretos, validación del `openapi.yaml`; build de comprobación |
+| Merge en `desarrollo/**` | Lo anterior + despliegue en **dev** |
 | Tag `vX.Y.Z-rc.N` | Tests + build + despliegue en **staging** + APK como artefacto |
 | Tag `vX.Y.Z` | Build + despliegue en **prod** + GitHub Release con APK |
 
@@ -277,29 +277,28 @@ Los *checks* de la CI son obligatorios para fusionar un PR.
 
 | Rama | Reglas |
 |---|---|
-| `main` | PR obligatorio, 2 aprobaciones, CI verde, sin push directo, solo desde `release/*` y `hotfix/*` |
-| `develop` | PR obligatorio, 1 aprobación, CI verde, sin push directo |
-| `release/*` | PR obligatorio, 1 aprobación, CI verde |
+| `main` | PR obligatorio, 2 aprobaciones, CI verde, sin push directo, solo desde `desarrollo/**` y `hotfix/*` |
+| `desarrollo/**` | PR obligatorio, 1 aprobación, CI verde, sin push directo ni borrado |
 | Tags `v*` | Solo las crean las personas con permiso de mantenimiento |
 
 ## 12. Roles
 
 | Rol | Quién | Responsabilidad |
 |---|---|---|
-| Release manager | Rotativo por versión | Corta la release, etiqueta los RC, coordina el QA y publica |
+| Release manager | Rotativo por versión | Abre las ramas `desarrollo/X.Y.Z/RCn`, etiqueta los RC, coordina el QA y publica |
 | Backend | Sergi y Aleix | API, BD, despliegue de staging/prod, apoyo a móvil |
 | Móvil (Android + iOS) | Jan, con apoyo de Sergi y Aleix | APK, TestFlight y pruebas en dispositivo |
 | UI | Pau | Revisión visual de cada RC |
 
 ## 13. Puesta en marcha (una sola vez)
 
-- [ ] Crear la rama `develop` a partir de `main` y hacerla rama por defecto de los PRs.
+- [x] Crear la rama `desarrollo/0.1.0/RC1` a partir de `main`.
 - [ ] Configurar la protección de ramas de §11.
 - [ ] Crear `CHANGELOG.md` con la sección `[Unreleased]`.
 - [ ] Crear los workflows de GitHub Actions de §10.
 - [ ] Crear las etiquetas `rc-blocker` y `rc-minor` en GitHub.
 - [ ] Decidir dónde se alojan staging y prod.
-- [ ] Actualizar la plantilla de PR para apuntar a `develop`.
+- [x] Actualizar la plantilla de PR para apuntar a `desarrollo/X.Y.Z/RCn`.
 - [ ] Añadir `.env.example` y archivos de bloqueo de dependencias (*lockfiles*) a cada proyecto.
 - [ ] Activar Dependabot, *secret scanning* y *push protection* en GitHub.
 - [ ] Configurar formateador, linter y comprobación de tipos en backend y móvil, y exigirlos en la CI.

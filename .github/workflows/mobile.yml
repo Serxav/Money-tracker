@@ -2,10 +2,10 @@ name: Mobile
 
 on:
   pull_request:
-    branches: [develop, main, "release/**", "desarrollo/**"]
+    branches: [main, "desarrollo/**"]
     paths: ["mobile/**", ".github/workflows/mobile.yml"]
   push:
-    branches: [develop, main, "release/**", "desarrollo/**"]
+    branches: [main, "desarrollo/**"]
     paths: ["mobile/**", ".github/workflows/mobile.yml"]
 
 permissions:

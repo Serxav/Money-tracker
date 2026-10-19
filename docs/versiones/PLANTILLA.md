@@ -1,8 +1,8 @@
 # Versión X.Y.Z — scope
 
-> Copia este archivo como `docs/versiones/X.Y.Z.md` al **empezar** el hito (en `develop`) y ciérralo al **cortar** `release/X.Y` (ver [WORKFLOW.md](../../WORKFLOW.md) §2).
+> Copia este archivo como `docs/versiones/X.Y.Z.md` al **empezar** el hito (en `desarrollo/X.Y.Z/RC1`) y ciérralo al **etiquetar** cada RC (ver [WORKFLOW.md](../../WORKFLOW.md) §2).
 
-- **Estado:** en desarrollo | RC (`vX.Y.Z-rc.N`) | publicada
+- **Estado:** en desarrollo | RCn (`desarrollo/X.Y.Z/RCn`, tag `vX.Y.Z-rc.n`) | publicada
 - **Fecha de corte:** AAAA-MM-DD
 - **Objetivo:** una frase con lo que aporta la versión.
 

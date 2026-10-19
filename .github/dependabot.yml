@@ -4,14 +4,14 @@ updates:
     directory: /backend
     schedule:
       interval: weekly
-    target-branch: develop
+    target-branch: desarrollo/0.1.0/RC1
   - package-ecosystem: npm
     directory: /mobile
     schedule:
       interval: weekly
-    target-branch: develop
+    target-branch: desarrollo/0.1.0/RC1
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
-    target-branch: develop
+    target-branch: desarrollo/0.1.0/RC1

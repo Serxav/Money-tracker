@@ -99,6 +99,8 @@ Para la QA manual, sigue [backend/README.md](backend/README.md) y [mobile/README
 
 Lee [CONTRIBUTING.md](CONTRIBUTING.md): ramas, commits y pull requests.
 
+Ramas: `main` (solo versiones finales) → `desarrollo/X.Y.Z/RCn` (versión en construcción y su candidata). Detalle en [WORKFLOW.md](WORKFLOW.md).
+
 ## 📄 Licencia
 
 [MIT](LICENSE) © 2026 Sergi Pascual Calvo y colaboradores.
