@@ -1,0 +1,48 @@
+{
+  "name": "money-tracker-mobile",
+  "version": "0.1.0",
+  "main": "expo-router/entry",
+  "dependencies": {
+    "@tanstack/react-query": "^5.104.5",
+    "expo": "~58.0.16",
+    "expo-constants": "~58.0.12",
+    "expo-crypto": "~58.0.7",
+    "expo-linking": "~58.0.13",
+    "expo-localization": "~58.0.5",
+    "expo-router": "~58.0.24",
+    "expo-secure-store": "~58.0.2",
+    "expo-status-bar": "~58.0.3",
+    "react": "19.3.0",
+    "react-native": "0.88.0",
+    "react-native-safe-area-context": "~5.10.1",
+    "react-native-screens": "~4.30.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^14.1.0",
+    "@types/jest": "30.0.0",
+    "@types/react": "~19.3.0",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~58.0.4",
+    "jest": "~30.5.2",
+    "jest-expo": "~58.0.11",
+    "react-dom": "19.3.0",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "check": "npm run typecheck && npm run lint && npm test"
+  },
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}

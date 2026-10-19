@@ -85,7 +85,7 @@ Se aceptan **varias divisas** desde la primera versión. Propuesta de diseño (a
 - **Tipos de cambio** en la tabla `TipoCambio`, actualizada por el backend desde un proveedor externo (por ejemplo el BCE, que publica tasas de referencia diarias). Los clientes **nunca** llaman al proveedor: solo el backend, y sin enviarle datos del usuario.
 - **Conversión para resúmenes**: cada movimiento se convierte a la divisa base con la tasa de su fecha (o la más cercana anterior). Las cifras convertidas son **informativas**: el dato real es el importe original en su divisa.
 - **Transferencias entre cuentas de distinta divisa**: fuera del alcance de la `0.1.0`; se decidirá después (qué tasa se aplica y cómo se registra).
-- **Presentación**: formato de importes según divisa e idioma (`NumberFormat` en Android, `NumberFormatter` en iOS); mostrar siempre el código o símbolo de la divisa.
+- **Presentación**: formato de importes según divisa e idioma (`Intl.NumberFormat` en la app React Native); mostrar siempre el código o símbolo de la divisa.
 - **Pruebas**: tests de redondeo y de conversión con divisas de 0, 2 y 3 decimales.
 
 ### Convenciones de la API
@@ -178,7 +178,7 @@ Se diseña para poder crecer, pero sin sobredimensionar al principio:
 - Versiones mínimas soportadas de Android e iOS.
 - Si la app usará notificaciones push o *deep links* (aumentan la superficie de ataque y las pruebas).
 - Objetivos de disponibilidad y recuperación (RTO/RPO) para la `1.0.0`.
-- **App móvil (Android + iOS a la vez)**: framework. Opciones: multiplataforma con una sola base de código (Flutter, React Native o Kotlin Multiplatform; lo más realista para una persona/equipo pequeño) o dos apps nativas (Kotlin + Jetpack Compose y Swift + SwiftUI; más trabajo y doble mantenimiento).
+- ~~Framework de la app móvil~~: **React Native + Expo (SDK 58) + TypeScript** — ver [ADR 0003](docs/adr/0003-app-movil-react-native-expo.md).
 - Herramienta de diseño para la UI (Figma u otra).
 - Proveedor de tipos de cambio y frecuencia de actualización.
 - Qué tasa se usa en los resúmenes (la de la fecha del movimiento o la actual) y cómo se tratan las transferencias entre divisas.

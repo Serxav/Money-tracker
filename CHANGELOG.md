@@ -5,6 +5,15 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 ## [Unreleased]
 
 ### Añadido
+- **App móvil 0.1 (alfa de desarrollo)** para Android e iOS con React Native + Expo SDK 58 + TypeScript ([mobile/README.md](mobile/README.md)):
+  - Registro, login, sesión persistente segura (Keychain/Keystore) y cierre de sesión.
+  - Cuentas con su divisa y saldo; alta de cuentas.
+  - Movimientos: alta (con `Idempotency-Key`), edición, borrado y listado paginado por cuenta.
+  - Categorías: listado, alta y borrado.
+  - Ajustes: divisa principal y borrado de la cuenta con todos los datos.
+  - Importes sin coma flotante, respuestas validadas con zod, controles accesibles.
+  - 16 tests (dinero, fechas, cliente HTTP con renovación de sesión, accesibilidad), CI móvil y `expo-doctor` sin incidencias.
+- ADR 0003: framework móvil React Native + Expo.
 - **Backend 0.1 (alfa de desarrollo)** en Java 21 + Spring Boot 4 + PostgreSQL ([backend/README.md](backend/README.md)):
   - Registro, login, refresco con rotación de sesiones, logout y borrado de cuenta con todos sus datos.
   - Cuentas con divisa ISO 4217 inmutable y saldo calculado; categorías de ingreso/gasto con categorías por defecto.
@@ -20,6 +29,6 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 - Soporte multidivisa en el diseño (divisa por cuenta, divisa base del usuario y tipos de cambio).
 
 ### Pendiente para cerrar la 0.1.0
-- **App móvil** (Android + iOS): falta decidir el framework (ver ARQUITECTURA.md).
+- Probar la app en dispositivos reales Android e iOS (QA del RC).
 - RLS en PostgreSQL como segunda barrera de autorización.
 - Hosting de dev/staging y despliegue automático.

@@ -4,7 +4,7 @@ Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open 
 
 ## 📌 Estado
 
-**Versión `0.1.0` en desarrollo (alfa).** Backend listo en `develop` ([backend/README.md](backend/README.md)); falta la app móvil, pendiente de elegir framework. Ver [CHANGELOG.md](CHANGELOG.md).
+**Versión `0.1.0` en desarrollo (alfa).** Backend ([backend/README.md](backend/README.md)) y app móvil Android/iOS con React Native + Expo ([mobile/README.md](mobile/README.md)). Ver [CHANGELOG.md](CHANGELOG.md).
 
 ## 💰 Sobre el proyecto
 
