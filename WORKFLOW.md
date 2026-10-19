@@ -148,6 +148,10 @@ Se hace mediante PR si `develop` está protegida. Conviene hacerlo **inmediatame
 - [ ] El `CHANGELOG.md` está actualizado.
 - [ ] La versión es coherente en backend, Android e iOS.
 - [ ] Las migraciones de base de datos se han probado sobre una copia de datos reales/semilla.
+- [ ] No hay secretos en Git ni en el paquete distribuido, y las dependencias se han analizado.
+- [ ] Hay copias de seguridad y se ha probado su restauración.
+- [ ] Políticas de privacidad y términos de uso publicados y correctos; declaraciones de privacidad de las tiendas revisadas.
+- [ ] Existe un plan para monitorizar la versión tras publicarla y mitigar una release defectuosa.
 
 ### Checklist de QA (plantilla por RC)
 
@@ -163,14 +167,22 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 **Android**
 - [ ] Instalación del APK limpia y actualización sobre la versión anterior
 - [ ] Flujos principales en un dispositivo real y en emulador
+- [ ] Comportamiento sin conexión / con error de red
+- [ ] Coincide con el diseño de Pau
 
 **iOS**
 - [ ] Instalación por TestFlight limpia y actualización sobre la versión anterior
 - [ ] Flujos principales en un iPhone real y en simulador
 - [ ] Comportamiento sin conexión / con error de red
 - [ ] Coincide con el diseño de Pau y con las guías de Apple
-- [ ] Comportamiento sin conexión / con error de red
-- [ ] Coincide con el diseño de Pau
+
+**Seguridad, accesibilidad y rendimiento (ambas plataformas y backend)**
+- [ ] Puntos de seguridad de [SEGURIDAD_Y_ETICA.md](SEGURIDAD_Y_ETICA.md) §10 verificados
+- [ ] Tests de autorización pasan (un usuario no accede a datos de otro)
+- [ ] Conexión lenta, desconexión, sesión caducada y respuestas inesperadas probadas
+- [ ] TalkBack (Android) y VoiceOver (iOS) permiten completar los flujos principales; texto escalable y contraste correctos
+- [ ] Arranque, memoria, red y batería medidos en un dispositivo modesto y sin degradación respecto al RC anterior
+- [ ] Probado en la versión mínima y en la última de Android e iOS
 
 **Integración**
 - [ ] Un movimiento creado en Android aparece en iOS y viceversa
@@ -191,7 +203,8 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 
 Reglas:
 - Un RC solo se despliega en staging; **nunca en prod**.
-- Los secretos (claves, contraseñas, `.env`) viven en los *secrets* de GitHub o del hosting, nunca en el repo.
+- Los secretos (claves, contraseñas, `.env`) viven en los *secrets* de GitHub o del hosting, nunca en el repo. Se versiona `.env.example` (sin valores) y cada entorno tiene credenciales distintas.
+- La configuración de desarrollo y la de producción están separadas; en producción, *debug* y mensajes de error detallados desactivados.
 - El APK de cada RC se adjunta como artefacto de la CI para que Jan y los testers lo instalen.
 
 > Pendiente de decidir: dónde se alojan los entornos (hosting del backend y distribución de la app móvil).
@@ -243,7 +256,7 @@ Para un error grave en producción:
 
 | Evento | Qué ejecuta |
 |---|---|
-| PR hacia `develop`, `release/*` o `main` | Lint + tests de backend y móvil; build de comprobación |
+| PR hacia `develop`, `release/*` o `main` | Formato + lint + comprobación de tipos, tests de backend y móvil, análisis estático (p. ej. CodeQL), análisis de dependencias, escaneo de secretos, validación del `openapi.yaml`; build de comprobación |
 | Merge en `develop` | Lo anterior + despliegue en **dev** |
 | Tag `vX.Y.Z-rc.N` | Tests + build + despliegue en **staging** + APK como artefacto |
 | Tag `vX.Y.Z` | Build + despliegue en **prod** + GitHub Release con APK |
@@ -277,3 +290,65 @@ Los *checks* de la CI son obligatorios para fusionar un PR.
 - [ ] Crear las etiquetas `rc-blocker` y `rc-minor` en GitHub.
 - [ ] Decidir dónde se alojan staging y prod.
 - [ ] Actualizar la plantilla de PR para apuntar a `develop`.
+- [ ] Añadir `.env.example` y archivos de bloqueo de dependencias (*lockfiles*) a cada proyecto.
+- [ ] Activar Dependabot, *secret scanning* y *push protection* en GitHub.
+- [ ] Configurar formateador, linter y comprobación de tipos en backend y móvil, y exigirlos en la CI.
+- [ ] Crear `docs/adr/` para las decisiones técnicas.
+- [ ] Preparar cuentas y requisitos de las tiendas (Google Play Console y Apple Developer) y el almacén seguro de firma.
+
+## 14. Calidad, testing y rendimiento
+
+### Calidad del código
+
+- Formateador, linter y análisis estático obligatorios en la CI; comprobación de tipos activada.
+- Evitar valores mágicos, código muerto y dependencias innecesarias; funciones y componentes con una sola responsabilidad.
+- No ocultar errores con bloques vacíos ni capturas genéricas.
+- Refactorizar de forma incremental y con tests; revisar todo con Pull Request.
+- Dependencias actualizadas, con mantenimiento y licencia comprobados (ver [SEGURIDAD_Y_ETICA.md](SEGURIDAD_Y_ETICA.md) §9).
+- Las decisiones y limitaciones relevantes se documentan en un ADR (`docs/adr/`).
+
+### Tipos de pruebas
+
+| Tipo | Qué cubre | Dónde |
+|---|---|---|
+| Unitarias | Reglas de negocio: cálculo de balances, presupuestos, redondeo y conversión de divisas (0, 2 y 3 decimales) | Backend y móvil |
+| Integración | Módulos, base de datos y servicios (incl. proveedor de tipos de cambio simulado) | Backend |
+| API / contrato | Contrato OpenAPI, errores, validación y **autorización** | Backend |
+| Interfaz | Flujos críticos: registro/login, crear movimiento, ver resumen | Móvil |
+| Regresión | Errores ya corregidos no reaparecen | Ambos |
+| Seguridad | Acceso horizontal/vertical, *mass assignment*, inyección, límites | Backend |
+| Rendimiento | Arranque, latencia, memoria, batería, red; carga del backend antes de la `1.0.0` | Ambos |
+| Accesibilidad | TalkBack, VoiceOver, escalado de texto, contraste | Móvil |
+| Dispositivos reales | Versión mínima y última de Android/iOS, gama baja, redes lentas | Móvil |
+
+- Datos de prueba **reproducibles** y ficticios.
+- Una cobertura alta no garantiza ausencia de defectos: priorizar los flujos críticos y las reglas de dinero.
+- Todo PR con lógica nueva incluye sus tests.
+
+### Rendimiento
+
+- Medir antes de optimizar; no hacer suposiciones.
+- No ejecutar trabajo pesado en el hilo principal; cancelar tareas y liberar recursos.
+- Evitar renderizados, consultas y peticiones duplicadas; paginar listas.
+- Reducir tamaño del paquete y carga inicial; limitar consumo de batería y de segundo plano.
+- Probar en dispositivos modestos y con red lenta.
+
+## 15. Publicación y despliegue de la app móvil
+
+- Builds **reproducibles** (dependencias bloqueadas) y versión registrada en cada artefacto.
+- **Firma y publicación restringidas** a pocas personas; claves fuera del repo y con copia segura.
+- Migraciones del backend probadas en staging antes de producción y compatibles con la versión anterior de la app.
+- **Publicación gradual** (despliegue por porcentajes en Google Play y publicación por fases en App Store) cuando sea posible.
+- **Monitorizar la versión tras publicarla** (errores, latencia, disponibilidad) y tener un plan de mitigación.
+- **Una versión móvil instalada no se puede revertir de forma instantánea**: el backend mantiene compatibilidad con versiones anteriores de la app (`/v1`), y un fallo grave se corrige con un hotfix (§9) y un ajuste en el servidor si es posible.
+- Revisar requisitos de privacidad y publicación de App Store y Google Play; preparar iconos, capturas, descripciones y fichas.
+- Probar *deep links* y notificaciones con la app abierta, cerrada y en segundo plano (si se usan).
+- Documentar las releases y los cambios incompatibles en el `CHANGELOG.md`.
+
+## 16. Prioridades por fase
+
+| Cuándo | Qué hacer |
+|---|---|
+| **Desde el primer día** | Git y `.gitignore`; secretos fuera del repo; arquitectura clara; validación de entradas; autorización en servidor; permisos de BD (y RLS si aplica); manejo de errores; tests básicos |
+| **Antes de publicar (RC / `1.0.0`)** | CI/CD completa; análisis de dependencias; *rate limiting*; HTTPS; logs seguros; accesibilidad; privacidad y políticas legales; pruebas en dispositivos reales; fichas de las tiendas |
+| **Cuando crezca el producto** | CDN, colas y cachés avanzadas; pruebas de carga; despliegues graduales; observabilidad avanzada; optimización de infraestructura |
