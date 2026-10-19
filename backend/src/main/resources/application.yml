@@ -14,6 +14,8 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+      # Un importe 12.5 no debe truncarse a 12: se rechaza.
+      accept-float-as-int: false
   threads:
     virtual:
       enabled: true
