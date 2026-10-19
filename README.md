@@ -8,7 +8,7 @@ Completed: Money tracker (Money manager app) - Waiting aprove to continue expand
 
 ## 💰 Sobre el proyecto
 
-Money Tracker es una aplicación para controlar ingresos y gastos personales, con versión **Desktop** y **Android** y un backend común que sincroniza los datos.
+Money Tracker es una aplicación para controlar ingresos y gastos personales, con versión **Web** y **Android** y un backend común que sincroniza los datos.
 
 - Funcionalidades previstas: movimientos, categorías, cuentas, resumen mensual, gráficos, presupuestos y exportación CSV.
 - Arquitectura y modelo de datos: [ARQUITECTURA.md](ARQUITECTURA.md)
@@ -18,7 +18,7 @@ Money Tracker es una aplicación para controlar ingresos y gastos personales, co
 |---|---|
 | UI (interfaz de usuario) | Pau |
 | App móvil (Android) | Jan |
-| Backend + Desktop | Sergi y Aleix |
+| Backend + Web | Sergi y Aleix |
 
 ## 👥 Equipo
 

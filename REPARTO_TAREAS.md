@@ -4,17 +4,17 @@
 |---|---|
 | **UI (Interfaz de usuario)** | Pau |
 | **Aplicación Android** | Jan |
-| **Backend + Desktop** | Sergi y Aleix |
+| **Backend + Web** | Sergi y Aleix |
 
 ---
 
 ## Pau — UI
 
-Diseño de la interfaz para Desktop y Android.
+Diseño de la interfaz para Web y Android.
 
 - [ ] Definir guía de estilo (colores, tipografía, iconos, componentes).
 - [ ] Wireframes de las pantallas principales.
-- [ ] Mockups finales (versión móvil y versión escritorio).
+- [ ] Mockups finales (versión móvil y versión web).
 - [ ] Pantallas: login/registro, inicio con resumen, lista de movimientos, añadir/editar movimiento, categorías y cuentas, estadísticas, presupuestos, ajustes.
 - [ ] Diseño de gráficos y estados vacíos / de error.
 - [ ] Modo claro / oscuro (opcional).
@@ -35,7 +35,7 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 - [ ] Manejo de errores y estados sin conexión.
 - [ ] Pruebas en dispositivo / emulador y generación del APK.
 
-## Sergi y Aleix — Backend + Desktop
+## Sergi y Aleix — Backend + Web
 
 ### Backend
 
@@ -45,25 +45,25 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 - [ ] Endpoints CRUD de cuentas, categorías y movimientos.
 - [ ] Endpoint de resumen / estadísticas mensuales.
 - [ ] Presupuestos.
-- [ ] Documentar la API (para que Jan y la app Desktop la consuman).
+- [ ] Documentar la API (para que Jan y la app Web la consuman).
 - [ ] Validaciones y manejo de errores.
 - [ ] Exportación CSV.
 
-### Desktop
+### Web
 
-- [ ] Elegir tecnología y crear proyecto base en `desktop/`.
+- [ ] Elegir tecnología y crear proyecto base en `web/`.
 - [ ] Implementar las pantallas diseñadas por Pau.
 - [ ] Conexión con la API del backend.
 - [ ] CRUD de movimientos, categorías y cuentas.
 - [ ] Resumen, gráficos y presupuestos.
-- [ ] Empaquetado / instalador.
+- [ ] Despliegue de la web.
 
 ### Sugerencia de división interna
 
 | Persona | Foco principal |
 |---|---|
 | Sergi | Backend (API + BD) |
-| Aleix | Desktop (con apoyo en backend) |
+| Aleix | Web (con apoyo en backend) |
 
 *(Ajustable entre ellos según carga de trabajo.)*
 
@@ -80,8 +80,8 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 
 ## Dependencias entre áreas
 
-- **Jan** y **Sergi/Aleix (Desktop)** necesitan los diseños de **Pau** para construir las pantallas.
-- **Jan** y **Desktop** necesitan la **API documentada** del backend; mientras tanto pueden trabajar con datos de prueba.
+- **Jan** y **Sergi/Aleix (Web)** necesitan los diseños de **Pau** para construir las pantallas.
+- **Jan** y la **Web** necesitan la **API documentada** del backend; mientras tanto pueden trabajar con datos de prueba.
 - Acordar pronto el contrato de la API (rutas y formato JSON) para trabajar en paralelo.
 
 ## Comunicación

@@ -4,7 +4,7 @@ Visión general de cómo encajan las piezas del Money Tracker. Las tecnologías 
 
 ```
  ┌──────────────┐        ┌──────────────┐
- │ App Android  │        │ App Desktop  │
+ │ App Android  │        │ App Web      │
  │    (Jan)     │        │ (Sergi/Aleix)│
  └──────┬───────┘        └──────┬───────┘
         │      HTTPS / JSON     │
@@ -65,6 +65,6 @@ Ambos clientes consumen la misma API y comparten pantallas principales:
 
 - Lenguaje y framework del backend.
 - Base de datos (SQLite, PostgreSQL, MySQL...).
-- Tecnología Desktop (JavaFX, Electron, Qt...).
+- Tecnología Web (React, Vue, Angular, HTML+JS...).
 - Android: Kotlin + Jetpack Compose (recomendado) o Java + XML.
 - Herramienta de diseño para la UI (Figma u otra).
