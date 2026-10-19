@@ -38,6 +38,9 @@ dist/
 build/
 .gradle/
 local.properties
+*.jks
+*.keystore
+keystore.properties
 out/
 
 # Swift / Xcode
