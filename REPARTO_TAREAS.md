@@ -4,7 +4,7 @@
 |---|---|
 | **UI (Interfaz de usuario)** | Pau |
 | **Aplicación móvil (Android + iOS a la vez)** | Jan |
-| **Backend** | Sergi y Aleix |
+| **Backend** (+ apoyo a la app móvil) | Sergi y Aleix |
 
 ---
 
@@ -40,7 +40,7 @@ Implementación de la aplicación móvil para **Android e iOS a la vez**, siguie
 - [ ] Pruebas en dispositivo / emulador / simulador en ambas plataformas.
 - [ ] Generación del APK (Android) y distribución de los RC por TestFlight (iOS).
 
-## Sergi y Aleix — Backend
+## Sergi y Aleix — Backend y apoyo a móvil
 
 ### Backend
 
@@ -56,14 +56,22 @@ Implementación de la aplicación móvil para **Android e iOS a la vez**, siguie
 - [ ] Validaciones y manejo de errores.
 - [ ] Exportación CSV.
 
+### Apoyo a la app móvil
+
+Cuando la API base (login, cuentas, movimientos) esté estable, Sergi y Aleix colaboran con Jan en la app móvil, de acuerdo con él:
+
+- [ ] Acordar con Jan qué partes toma cada uno (p. ej. pantallas concretas, iOS, tests o integración con la API).
+- [ ] Revisar los PRs móviles (ver [WORKFLOW.md](WORKFLOW.md) §3).
+- [ ] Probar en dispositivos y simuladores de Android e iOS.
+
 ### Sugerencia de división interna
 
 | Persona | Foco principal |
 |---|---|
-| Sergi | Backend (API + BD) |
-| Aleix | Backend (autenticación, divisas y exportación) y apoyo a la app móvil, p. ej. iOS |
+| Sergi | Backend (API + BD) y apoyo a la app móvil |
+| Aleix | Backend (autenticación, divisas y exportación) y apoyo a la app móvil |
 
-*(Ajustable entre ellos. Sin web, el backend es más pequeño y la app móvil —dos plataformas, una sola persona— es el cuello de botella: conviene que uno de los dos apoye en móvil.)*
+*(Sin web, el backend es más pequeño y la app móvil —dos plataformas— es el cuello de botella, así que **Sergi y Aleix apoyan a Jan en móvil** una vez la API base esté estable. Ajustable según la carga.)*
 
 ---
 

@@ -95,4 +95,4 @@ La app móvil (Android e iOS) consume la API y tiene estas pantallas principales
 - Idiomas de la app (español, catalán, inglés...).
 - Si la app móvil funciona sin conexión y sincroniza después.
 - iOS: compilar y firmar requiere un **Mac** y una cuenta de desarrollador de Apple (de pago, para TestFlight/App Store). Decidir quién dispone de ellos; si no hay, valorar compilar en un servicio de CI con macOS.
-- Reparto de la app móvil: hoy es Jan solo. Valorar apoyo de otra persona para iOS y pruebas en dispositivos.
+- Reparto concreto del trabajo móvil entre Jan, Sergi y Aleix (quién toma qué pantallas, iOS y pruebas en dispositivos).

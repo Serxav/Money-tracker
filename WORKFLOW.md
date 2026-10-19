@@ -265,7 +265,7 @@ Los *checks* de la CI son obligatorios para fusionar un PR.
 |---|---|---|
 | Release manager | Rotativo por versión | Corta la release, etiqueta los RC, coordina el QA y publica |
 | Backend | Sergi y Aleix | API, BD, despliegue de staging/prod, apoyo a móvil |
-| Móvil (Android + iOS) | Jan | APK, TestFlight y pruebas en dispositivo |
+| Móvil (Android + iOS) | Jan, con apoyo de Sergi y Aleix | APK, TestFlight y pruebas en dispositivo |
 | UI | Pau | Revisión visual de cada RC |
 
 ## 13. Puesta en marcha (una sola vez)

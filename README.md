@@ -21,7 +21,7 @@ Money Tracker es una aplicación para controlar ingresos y gastos personales, co
 |---|---|
 | UI (interfaz de usuario) | Pau |
 | App móvil (Android + iOS) | Jan |
-| Backend | Sergi y Aleix |
+| Backend + apoyo a la app móvil | Sergi y Aleix |
 
 ## 👥 Equipo
 
