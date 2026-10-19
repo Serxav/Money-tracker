@@ -29,6 +29,9 @@ docs: actualiza el README
 
 ## Antes de abrir un PR
 
-- [ ] Funciona en tu equipo.
-- [ ] No subes contraseñas, API keys ni archivos `.env`.
+- [ ] Funciona en tu equipo y pasan el formateador, el linter y los tests.
+- [ ] Has añadido o actualizado tests de lo que cambias (y de la autorización si tocas la API).
+- [ ] No subes contraseñas, API keys, certificados de firma ni archivos `.env` (solo `.env.example`, sin valores).
+- [ ] No registras datos personales ni financieros en logs.
+- [ ] Has leído [SEGURIDAD_Y_ETICA.md](SEGURIDAD_Y_ETICA.md) §10 si tocas autenticación, permisos o datos.
 - [ ] Has actualizado la documentación si hace falta.
