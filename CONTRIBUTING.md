@@ -2,13 +2,13 @@
 
 ## Flujo de trabajo
 
-> Las versiones, RCs, `develop` y `release/*` están descritos en [WORKFLOW.md](WORKFLOW.md). Las ramas de tarea salen de `develop` y los PRs van hacia `develop`.
+> Estructura de ramas: `main` → `desarrollo/X.Y.Z/RCn` (ver [WORKFLOW.md](WORKFLOW.md)). Las ramas de tarea salen de la rama `desarrollo/X.Y.Z/RCn` abierta de la versión en curso y los PRs van hacia esa misma rama. A `main` solo llegan versiones finales.
 
-1. **Nada directo a `main`.** Cada tarea va en su propia rama:
+1. **Nada directo a `main` ni a `desarrollo/**`.** Cada tarea va en su propia rama, creada desde la rama `desarrollo/X.Y.Z/RCn` abierta:
    - `feat/nombre-corto` → funcionalidad nueva
    - `fix/nombre-corto` → corrección
    - `docs/nombre-corto` → documentación
-2. Abre un **Pull Request** hacia `main` y pide revisión a otro miembro del equipo.
+2. Abre un **Pull Request** hacia esa rama `desarrollo/X.Y.Z/RCn` y pide revisión a otro miembro del equipo.
 3. Cuando esté aprobado, se fusiona con **Squash and merge** (la rama se borra sola).
 
 ## Commits

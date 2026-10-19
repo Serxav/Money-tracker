@@ -1,0 +1,28 @@
+name: Backend
+
+on:
+  pull_request:
+    branches: [main, "desarrollo/**"]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  push:
+    branches: [main, "desarrollo/**"]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Compilar y tests (incluye Testcontainers y contrato OpenAPI)
+        run: ./mvnw -B verify

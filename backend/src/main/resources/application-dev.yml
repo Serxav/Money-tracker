@@ -1,0 +1,6 @@
+# Perfil de desarrollo local: documentación de la API activada.
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

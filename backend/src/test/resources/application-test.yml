@@ -1,0 +1,7 @@
+springdoc:
+  api-docs:
+    enabled: true
+app:
+  rate-limit:
+    auth-per-minute: 1000
+    api-per-minute: 10000

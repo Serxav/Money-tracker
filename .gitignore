@@ -34,6 +34,7 @@ npm-debug.log*
 dist/
 
 # Java / Kotlin / Android
+target/
 *.class
 build/
 .gradle/

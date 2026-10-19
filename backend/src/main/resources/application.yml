@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: money-tracker-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/moneytracker}
+    username: ${DB_USER:moneytracker}
+    password: ${DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      # Un importe 12.5 no debe truncarse a 12: se rechaza.
+      accept-float-as-int: false
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-stacktrace: never
+    include-message: never
+    whitelabel:
+      enabled: false
+  servlet:
+    encoding:
+      force: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+springdoc:
+  api-docs:
+    enabled: ${API_DOCS_ENABLED:false}
+  swagger-ui:
+    enabled: ${API_DOCS_ENABLED:false}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:}
+    issuer: money-tracker
+    access-token-ttl: 15m
+    refresh-token-ttl: 30d
+  rate-limit:
+    auth-per-minute: ${RATE_LIMIT_AUTH_PER_MINUTE:10}
+    api-per-minute: ${RATE_LIMIT_API_PER_MINUTE:300}
+  currencies:
+    # Lista inicial provisional (decisión pendiente en ARQUITECTURA.md).
+    supported: EUR,USD,GBP,CHF,JPY,CAD,AUD,MXN,KWD
+  http:
+    max-request-bytes: 65536
+
+logging:
+  pattern:
+    level: "%5p [%X{requestId:-}]"
