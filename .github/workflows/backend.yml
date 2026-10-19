@@ -2,10 +2,10 @@ name: Backend
 
 on:
   pull_request:
-    branches: [develop, main, "release/**"]
+    branches: [develop, main, "release/**", "desarrollo/**"]
     paths: ["backend/**", ".github/workflows/backend.yml"]
   push:
-    branches: [develop, main, "release/**"]
+    branches: [develop, main, "release/**", "desarrollo/**"]
     paths: ["backend/**", ".github/workflows/backend.yml"]
 
 permissions:
