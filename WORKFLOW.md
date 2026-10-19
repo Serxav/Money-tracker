@@ -52,6 +52,15 @@ La versión única cubre **backend y la app móvil (Android e iOS)**: todas sale
 
 Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un tag.
 
+### Documento de scope por versión
+
+**Cada versión tiene su `docs/versiones/X.Y.Z.md`** con lo que entra, lo que no entra (y cuándo se espera), las limitaciones conocidas, los criterios de aceptación y la compatibilidad. Se parte de [`docs/versiones/PLANTILLA.md`](docs/versiones/PLANTILLA.md):
+
+1. Se **crea en `develop`** al empezar el hito, con el scope previsto.
+2. Se **actualiza** si el scope cambia durante el desarrollo (mediante PR, como cualquier cambio).
+3. Se **cierra en `release/X.Y`** al cortar la versión: refleja lo que realmente entra y su estado (RC o publicada).
+4. Un RC o una versión final **no se publica sin su documento de scope** (ver §5).
+
 ### Hitos (propuesta inicial)
 
 | Versión | Objetivo |
@@ -94,7 +103,7 @@ git push -u origin release/0.2
 
 - `develop` queda libre para seguir con el siguiente hito.
 - En `release/0.2` **solo se admiten correcciones** (nada de funcionalidades nuevas).
-- Se actualiza el número de versión en los proyectos (backend, móvil) y se prepara el `CHANGELOG.md` (§7).
+- Se actualiza el número de versión en los proyectos (backend, móvil), se prepara el `CHANGELOG.md` (§7) y se cierra el documento de scope `docs/versiones/X.Y.Z.md` (§2).
 
 ### 4.2 Release Candidate
 
@@ -146,6 +155,7 @@ Se hace mediante PR si `develop` está protegida. Conviene hacerlo **inmediatame
 - [ ] No hay issues `rc-blocker` abiertas.
 - [ ] El checklist de QA se ha completado en staging.
 - [ ] El `CHANGELOG.md` está actualizado.
+- [ ] Existe `docs/versiones/X.Y.Z.md` con el scope real de la versión.
 - [ ] La versión es coherente en backend, Android e iOS.
 - [ ] Las migraciones de base de datos se han probado sobre una copia de datos reales/semilla.
 - [ ] No hay secretos en Git ni en el paquete distribuido, y las dependencias se han analizado.

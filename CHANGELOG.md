@@ -6,7 +6,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [0.1.0] - 2026-10-19
 
-Versión alfa de desarrollo: backend y app móvil con registro, cuentas multidivisa, categorías y movimientos.
+Versión alfa de desarrollo: backend y app móvil con registro, cuentas multidivisa, categorías y movimientos. Scope detallado: [docs/versiones/0.1.0.md](docs/versiones/0.1.0.md).
 
 ### Añadido
 - **App móvil 0.1 (alfa de desarrollo)** para Android e iOS con React Native + Expo SDK 58 + TypeScript ([mobile/README.md](mobile/README.md)):
@@ -18,6 +18,7 @@ Versión alfa de desarrollo: backend y app móvil con registro, cuentas multidiv
   - Importes sin coma flotante, respuestas validadas con zod, controles accesibles.
   - 16 tests (dinero, fechas, cliente HTTP con renovación de sesión, accesibilidad), CI móvil y `expo-doctor` sin incidencias.
 - ADR 0003: framework móvil React Native + Expo.
+- Documento de scope por versión (`docs/versiones/`) y norma en WORKFLOW.md.
 - **Backend 0.1 (alfa de desarrollo)** en Java 21 + Spring Boot 4 + PostgreSQL ([backend/README.md](backend/README.md)):
   - Registro, login, refresco con rotación de sesiones, logout y borrado de cuenta con todos sus datos.
   - Cuentas con divisa ISO 4217 inmutable y saldo calculado; categorías de ingreso/gasto con categorías por defecto.
