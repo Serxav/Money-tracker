@@ -166,7 +166,7 @@ Se diseña para poder crecer, pero sin sobredimensionar al principio:
 
 ## Decisiones pendientes
 
-- Lenguaje y framework del backend.
+- ~~Lenguaje y framework del backend~~: **decidido, Java (Spring Boot)** — ver [ADR 0001](docs/adr/0001-stack-backend-java.md). Pendiente: versión de Java y herramienta de compilación.
 - Base de datos (SQLite, PostgreSQL, MySQL...). Recomendable un motor con RLS y buen soporte de transacciones (p. ej. PostgreSQL).
 - **API propia o servicio gestionado (BaaS)**: con API propia el cliente nunca toca la BD (recomendado); con BaaS, RLS es obligatorio.
 - Versiones mínimas soportadas de Android e iOS.
