@@ -164,6 +164,13 @@ async function send<T>(method: Method, path: string, options: RequestOptions<T>)
   }
   const parsed = options.schema.safeParse(json);
   if (!parsed.success) {
+    if (__DEV__) {
+      // Solo rutas y códigos de los campos, nunca sus valores (pueden ser datos personales).
+      console.warn(
+        `[api] Respuesta no válida en ${method} ${path}:`,
+        parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.code}`).join(', '),
+      );
+    }
     throw new NetworkError('invalid-response', 'Respuesta del servidor con formato inesperado');
   }
   return parsed.data;

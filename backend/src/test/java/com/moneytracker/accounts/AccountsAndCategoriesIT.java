@@ -16,6 +16,7 @@ class AccountsAndCategoriesIT extends IntegrationTest {
             "{\"name\":\"" + name + "\",\"currency\":\"" + currency + "\",\"initialBalance\":" + initial + "}",
             s.accessToken());
     assertThat(res.status()).as(res.body()).isEqualTo(201);
+    assertThat((String) res.json("$.createdAt")).isNotBlank();
     return res.json("$.id");
   }
 

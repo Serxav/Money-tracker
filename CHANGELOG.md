@@ -16,7 +16,7 @@ Versión alfa de desarrollo: backend y app móvil con registro, cuentas multidiv
   - Categorías: listado, alta y borrado.
   - Ajustes: divisa principal y borrado de la cuenta con todos los datos.
   - Importes sin coma flotante, respuestas validadas con zod, controles accesibles.
-  - 16 tests (dinero, fechas, cliente HTTP con renovación de sesión, accesibilidad), CI móvil y `expo-doctor` sin incidencias.
+  - 19 tests (dinero, fechas, esquemas, cliente HTTP con renovación de sesión, accesibilidad), CI móvil y `expo-doctor` sin incidencias.
 - ADR 0003: framework móvil React Native + Expo.
 - Documento de scope por versión (`docs/versiones/`) y norma en WORKFLOW.md.
 - **Backend 0.1 (alfa de desarrollo)** en Java 21 + Spring Boot 4 + PostgreSQL ([backend/README.md](backend/README.md)):
@@ -33,7 +33,11 @@ Versión alfa de desarrollo: backend y app móvil con registro, cuentas multidiv
 - App móvil planificada para Android e iOS a la vez. Sin versión web por ahora.
 - Soporte multidivisa en el diseño (divisa por cuenta, divisa base del usuario y tipos de cambio).
 
+### Corregido (QA de `rc.2` en Android, ver [informe](docs/versiones/0.1.0-qa.md))
+- La app mostraba "Unmatched Route" al abrirse sin sesión y al recargarse con sesión.
+- Crear un movimiento devolvía `createdAt`/`updatedAt` a `null`: la app no cerraba el formulario y el siguiente alta fallaba por `Idempotency-Key` reutilizada.
+
 ### Pendiente (QA del RC y siguientes versiones)
-- Probar la app en dispositivos reales Android e iOS (QA del RC).
+- QA en iOS y en un dispositivo Android físico; recorrido con TalkBack.
 - RLS en PostgreSQL como segunda barrera de autorización.
 - Hosting de dev/staging y despliegue automático.

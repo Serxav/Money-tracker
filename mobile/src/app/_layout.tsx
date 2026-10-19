@@ -5,7 +5,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { queryClient } from '@/core/queryClient';
 import { SessionProvider, useSession } from '@/core/session/SessionProvider';
-import { Loading } from '@/shared/ui/Feedback';
 
 export default function RootLayout() {
   return (
@@ -20,15 +19,17 @@ export default function RootLayout() {
   );
 }
 
-/** Rutas protegidas: sin sesión solo se ven login y registro; con sesión, el resto. */
+/**
+ * Rutas protegidas: sin sesión solo se ven login y registro; con sesión, el resto. El navegador
+ * se monta siempre (también mientras se restaura la sesión) para que Expo Router pueda resolver
+ * la ruta inicial; la pantalla de carga la muestra la ruta `/`.
+ */
 function RootNavigator() {
   const { status } = useSession();
-  if (status === 'loading') {
-    return <Loading />;
-  }
   const signedIn = status === 'signedIn';
   return (
     <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
       <Stack.Protected guard={signedIn}>
         <Stack.Screen name="(app)" />
       </Stack.Protected>

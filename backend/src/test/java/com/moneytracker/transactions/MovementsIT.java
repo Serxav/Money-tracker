@@ -44,6 +44,10 @@ class MovementsIT extends IntegrationTest {
     assertThat((String) expense.json("$.description")).isEqualTo("Súper");
     assertThat((Integer) expense.json("$.amount")).isEqualTo(2550);
     assertThat((String) expense.json("$.date")).isEqualTo("2026-10-01");
+    // El cliente móvil valida estos campos: no pueden faltar en la respuesta de creación.
+    assertThat((String) expense.json("$.id")).isNotBlank();
+    assertThat((String) expense.json("$.createdAt")).isNotBlank();
+    assertThat((String) expense.json("$.updatedAt")).isNotBlank();
     assertThat(create(f, "INCOME", 100_000, "2026-10-02").status()).isEqualTo(201);
 
     Response account = api.get("/v1/accounts/" + f.account(), f.s().accessToken());
@@ -176,6 +180,8 @@ class MovementsIT extends IntegrationTest {
     assertThat(updated.status()).isEqualTo(200);
     assertThat((String) updated.json("$.currency")).isEqualTo("USD");
     assertThat((Integer) updated.json("$.amount")).isEqualTo(250);
+    assertThat((String) updated.json("$.createdAt")).isNotBlank();
+    assertThat((String) updated.json("$.updatedAt")).isNotBlank();
     assertThat(((Number) api.get("/v1/accounts/" + f.account(), f.s().accessToken()).json("$.balance")).longValue())
         .isEqualTo(10_000);
     assertThat(api.delete("/v1/transactions/" + id, null, f.s().accessToken()).status()).isEqualTo(204);

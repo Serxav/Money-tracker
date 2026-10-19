@@ -75,9 +75,10 @@ public class MovementService {
         return new CreateResult(MovementResponse.of(require(userId, existing.get().getTransactionId())), true);
       }
     }
-    Movement movement = new Movement(userId);
-    applyValidated(userId, movement, request);
-    movements.save(movement);
+    Movement draft = new Movement(userId);
+    applyValidated(userId, draft, request);
+    // save() devuelve la entidad gestionada (con createdAt/updatedAt): hay que usar esa.
+    Movement movement = movements.saveAndFlush(draft);
     if (idempotencyKey != null) {
       idempotencyKeys.save(new IdempotencyKey(userId, idempotencyKey, requestHash, movement.getId()));
     }
