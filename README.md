@@ -6,6 +6,20 @@ Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open 
 
 Completed: Money tracker (Money manager app) - Waiting aprove to continue expanding
 
+## 💰 Sobre el proyecto
+
+Money Tracker es una aplicación para controlar ingresos y gastos personales, con versión **Desktop** y **Android** y un backend común que sincroniza los datos.
+
+- Funcionalidades previstas: movimientos, categorías, cuentas, resumen mensual, gráficos, presupuestos y exportación CSV.
+- Arquitectura y modelo de datos: [ARQUITECTURA.md](ARQUITECTURA.md)
+- Reparto de tareas y fases: [REPARTO_TAREAS.md](REPARTO_TAREAS.md)
+
+| Área | Responsable |
+|---|---|
+| UI (interfaz de usuario) | Pau |
+| App móvil (Android) | Jan |
+| Backend + Desktop | Sergi y Aleix |
+
 ## 👥 Equipo
 
 | | GitHub | Rol |
