@@ -1,6 +1,6 @@
 # Seguridad, privacidad y ética
 
-Guía para los programadores del Money Tracker (Backend, Web y Android). Los datos financieros personales son **sensibles**: aunque no manejamos dinero real ni conectamos con bancos, un movimiento revela hábitos, salud, ideología o situación económica de una persona. Trátalos con ese nivel de cuidado desde el primer commit.
+Guía para los programadores del Money Tracker (Backend, Web y app móvil Android/iOS). Los datos financieros personales son **sensibles**: aunque no manejamos dinero real ni conectamos con bancos, un movimiento revela hábitos, salud, ideología o situación económica de una persona. Trátalos con ese nivel de cuidado desde el primer commit.
 
 > Es una lista de requisitos mínimos, no un documento legal. Los puntos de RGPD deben contrastarse con el texto oficial y, si el proyecto sale del ámbito académico, con un profesional.
 
@@ -86,7 +86,7 @@ Referencia: [OWASP API Security Top 10 (2023)](https://apisecurity.io/owasp-api-
 
 ---
 
-## 5. App Android
+## 5. App móvil (Android e iOS)
 
 Referencia: [OWASP MASVS](https://opensecurityarchitecture.org/frameworks/owasp-masvs-v2) (y su guía de pruebas MASTG). Objetivo: cumplir como mínimo el nivel **L1** (base para toda app en producción).
 
@@ -99,7 +99,7 @@ Referencia: [OWASP MASVS](https://opensecurityarchitecture.org/frameworks/owasp-
 - **Bloqueo de la app**: DEBERÍA ofrecer bloqueo opcional con biometría / PIN del dispositivo.
 - **Permisos**: pedir solo los estrictamente necesarios (la app no necesita contactos, ubicación ni SMS).
 - **Release**: firma del APK con una clave protegida (no en el repo), ofuscación/minificación (R8) y `debuggable=false`.
-- **iOS (última fase)**: al desarrollarla se aplicarán los mismos requisitos de MASVS (Keychain para secretos, ATS/TLS, sin datos sensibles en logs ni en copias).
+- **iOS**: se aplican los mismos requisitos de MASVS: **Keychain** para tokens y claves (equivalente al Keystore), App Transport Security/TLS sin excepciones, sin datos sensibles en logs, copias de iCloud ni capturas de la vista de apps recientes. Con un framework multiplataforma, usar el almacenamiento seguro de cada plataforma, no el almacenamiento genérico del framework.
 - **Dependencias y SDKs de terceros**: cada SDK (analítica, anuncios, crash reporting) es un posible fugitivo de datos. **No** incluir SDKs de publicidad ni analítica que envíen datos financieros a terceros.
 
 ---
@@ -178,7 +178,7 @@ Más allá de la ley, estas son decisiones que tomamos como equipo:
 
 ## 10. Checklist para PRs y RCs
 
-**En cada PR que toque backend, web o Android**
+**En cada PR que toque backend, web o móvil**
 - [ ] Toda entrada se valida en el backend.
 - [ ] Cada endpoint comprueba autenticación **y** que el recurso pertenece al usuario.
 - [ ] No se devuelven más campos de los necesarios.

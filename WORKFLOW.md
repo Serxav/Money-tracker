@@ -1,6 +1,6 @@
 # Workflow del proyecto
 
-Flujo de trabajo del Money Tracker (Backend + Web + Android): ramas, versiones, Release Candidates (RC), entornos, CI y changelog.
+Flujo de trabajo del Money Tracker (Backend + Web + app móvil Android/iOS): ramas, versiones, Release Candidates (RC), entornos, CI y changelog.
 
 Complementa a [CONTRIBUTING.md](CONTRIBUTING.md) (reglas básicas de ramas, commits y PRs). Donde haya diferencias, **manda este documento**.
 
@@ -48,7 +48,7 @@ Mientras estemos en `0.x.y` el producto se considera en desarrollo: los `MINOR` 
 | `v0.2.0-rc.2` | Segundo RC (tras corregir fallos del anterior) |
 | `v0.2.0` | Versión final |
 
-La versión única cubre **backend, web y Android** y, cuando llegue su fase (la última), **iOS**.
+La versión única cubre **backend, web y la app móvil (Android e iOS)**: todas salen con el mismo número.
 
 Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un tag.
 
@@ -56,11 +56,10 @@ Los tags son inmutables: si un RC falla, se crea `rc.N+1`, nunca se reescribe un
 
 | Versión | Objetivo |
 |---|---|
-| `0.1.0` | Login, cuentas (con divisa), categorías y CRUD de movimientos (backend + web + Android) |
+| `0.1.0` | Login, cuentas (con divisa), categorías y CRUD de movimientos (backend + web + Android + iOS) |
 | `0.2.0` | Resumen mensual y gráficos, con tipos de cambio y conversión a la divisa base |
 | `0.3.0` | Presupuestos y avisos |
 | `0.4.0` | Exportación CSV y pulido de UI |
-| `0.5.0` | App iOS (última fase de desarrollo) |
 | `1.0.0` | Versión estable de entrega (Backend + Web + Android + iOS) |
 
 La cadencia es **por hito**: se corta un RC cuando todas las issues del hito están cerradas en `develop`.
@@ -95,7 +94,7 @@ git push -u origin release/0.2
 
 - `develop` queda libre para seguir con el siguiente hito.
 - En `release/0.2` **solo se admiten correcciones** (nada de funcionalidades nuevas).
-- Se actualiza el número de versión en los proyectos (backend, web, Android) y se prepara el `CHANGELOG.md` (§7).
+- Se actualiza el número de versión en los proyectos (backend, web, móvil) y se prepara el `CHANGELOG.md` (§7).
 
 ### 4.2 Release Candidate
 
@@ -147,7 +146,7 @@ Se hace mediante PR si `develop` está protegida. Conviene hacerlo **inmediatame
 - [ ] No hay issues `rc-blocker` abiertas.
 - [ ] El checklist de QA se ha completado en staging.
 - [ ] El `CHANGELOG.md` está actualizado.
-- [ ] La versión es coherente en backend, web y Android.
+- [ ] La versión es coherente en backend, web, Android e iOS.
 - [ ] Las migraciones de base de datos se han probado sobre una copia de datos reales/semilla.
 
 ### Checklist de QA (plantilla por RC)
@@ -170,16 +169,22 @@ Copia esto en una issue `QA vX.Y.Z-rc.N` y marca lo verificado.
 **Android**
 - [ ] Instalación del APK limpia y actualización sobre la versión anterior
 - [ ] Flujos principales en un dispositivo real y en emulador
+
+**iOS**
+- [ ] Instalación por TestFlight limpia y actualización sobre la versión anterior
+- [ ] Flujos principales en un iPhone real y en simulador
+- [ ] Comportamiento sin conexión / con error de red
+- [ ] Coincide con el diseño de Pau y con las guías de Apple
 - [ ] Comportamiento sin conexión / con error de red
 - [ ] Coincide con el diseño de Pau
 
 **Integración**
-- [ ] Un movimiento creado en web aparece en Android y viceversa
+- [ ] Un movimiento creado en web aparece en Android, iOS y web, y viceversa
 - [ ] Mismos totales en ambos clientes
 
 **Divisas**
 - [ ] Cuentas en divisas de 0, 2 y 3 decimales muestran bien los importes
-- [ ] Totales convertidos a la divisa base coinciden en web y Android
+- [ ] Totales convertidos a la divisa base coinciden en web, Android e iOS
 - [ ] Si fallan los tipos de cambio, la app sigue funcionando y lo indica
 
 ## 6. Entornos
@@ -244,7 +249,7 @@ Para un error grave en producción:
 
 | Evento | Qué ejecuta |
 |---|---|
-| PR hacia `develop`, `release/*` o `main` | Lint + tests de backend, web y Android; build de comprobación |
+| PR hacia `develop`, `release/*` o `main` | Lint + tests de backend, web y móvil; build de comprobación |
 | Merge en `develop` | Lo anterior + despliegue en **dev** |
 | Tag `vX.Y.Z-rc.N` | Tests + build + despliegue en **staging** + APK como artefacto |
 | Tag `vX.Y.Z` | Build + despliegue en **prod** + GitHub Release con APK |
@@ -267,7 +272,7 @@ Los *checks* de la CI son obligatorios para fusionar un PR.
 | Release manager | Rotativo por versión | Corta la release, etiqueta los RC, coordina el QA y publica |
 | Backend | Sergi y Aleix | API, BD, despliegue de staging/prod |
 | Web | Sergi y Aleix | Cliente web |
-| Android | Jan | APK y pruebas en dispositivo |
+| Móvil (Android + iOS) | Jan | APK, TestFlight y pruebas en dispositivo |
 | UI | Pau | Revisión visual de cada RC |
 
 ## 13. Puesta en marcha (una sola vez)

@@ -4,8 +4,9 @@ Visión general de cómo encajan las piezas del Money Tracker. Las tecnologías 
 
 ```
  ┌──────────────┐        ┌──────────────┐
- │ App Android  │        │ App Web      │
- │    (Jan)     │        │ (Sergi/Aleix)│
+ │ App móvil    │        │ App Web      │
+ │ Android+iOS  │        │ (Sergi/Aleix)│
+ │    (Jan)     │        │              │
  └──────┬───────┘        └──────┬───────┘
         │      HTTPS / JSON     │
         └───────────┬───────────┘
@@ -20,7 +21,7 @@ Visión general de cómo encajan las piezas del Money Tracker. Las tecnologías 
 
 La UI (Pau) define el diseño que implementan ambas aplicaciones, de modo que mantengan una experiencia coherente.
 
-> **La app iOS se desarrolla al final** (última fase del plan, tras Web y Android). Por eso la API debe ser agnóstica del cliente (REST + JSON, sin depender de Android ni de la web) y así la app iOS la consuma sin cambios en el backend.
+> **La app móvil se desarrolla para Android e iOS a la vez**, y la web va en paralelo. Un único equipo móvil mantiene las dos plataformas, por lo que se recomienda una base de código compartida (ver decisiones pendientes). La API es agnóstica del cliente (REST + JSON) y la consumen los tres: Android, iOS y web.
 
 ## Backend
 
@@ -49,7 +50,7 @@ Se aceptan **varias divisas** desde la primera versión. Propuesta de diseño (a
 - **Tipos de cambio** en la tabla `TipoCambio`, actualizada por el backend desde un proveedor externo (por ejemplo el BCE, que publica tasas de referencia diarias). Los clientes **nunca** llaman al proveedor: solo el backend, y sin enviarle datos del usuario.
 - **Conversión para resúmenes**: cada movimiento se convierte a la divisa base con la tasa de su fecha (o la más cercana anterior). Las cifras convertidas son **informativas**: el dato real es el importe original en su divisa.
 - **Transferencias entre cuentas de distinta divisa**: fuera del alcance de la `0.1.0`; se decidirá después (qué tasa se aplica y cómo se registra).
-- **Presentación**: formato de importes según divisa e idioma (`Intl.NumberFormat` en web, `NumberFormat` en Android); mostrar siempre el código o símbolo de la divisa.
+- **Presentación**: formato de importes según divisa e idioma (`Intl.NumberFormat` en web, `NumberFormat` en Android, `NumberFormatter` en iOS); mostrar siempre el código o símbolo de la divisa.
 - **Pruebas**: tests de redondeo y de conversión con divisas de 0, 2 y 3 decimales.
 
 ### Endpoints (borrador)
@@ -84,11 +85,12 @@ Ambos clientes consumen la misma API y comparten pantallas principales:
 - Lenguaje y framework del backend.
 - Base de datos (SQLite, PostgreSQL, MySQL...).
 - Tecnología Web (React, Vue, Angular, HTML+JS...).
-- Android: Kotlin + Jetpack Compose (recomendado) o Java + XML.
+- **App móvil (Android + iOS a la vez)**: framework. Opciones: multiplataforma con una sola base de código (Flutter, React Native o Kotlin Multiplatform; lo más realista para una persona/equipo pequeño) o dos apps nativas (Kotlin + Jetpack Compose y Swift + SwiftUI; más trabajo y doble mantenimiento).
 - Herramienta de diseño para la UI (Figma u otra).
 - Proveedor de tipos de cambio y frecuencia de actualización.
 - Qué tasa se usa en los resúmenes (la de la fecha del movimiento o la actual) y cómo se tratan las transferencias entre divisas.
 - Lista inicial de divisas soportadas.
 - Idiomas de la app (español, catalán, inglés...).
-- Si Android funciona sin conexión y sincroniza después.
-- iOS (última fase): tecnología (nativa SwiftUI o multiplataforma), quién la desarrolla y cómo se prueba/distribuye (requiere Mac y cuenta de desarrollador de Apple, TestFlight para los RC).
+- Si la app móvil funciona sin conexión y sincroniza después.
+- iOS: compilar y firmar requiere un **Mac** y una cuenta de desarrollador de Apple (de pago, para TestFlight/App Store). Decidir quién dispone de ellos; si no hay, valorar compilar en un servicio de CI con macOS.
+- Reparto de la app móvil: hoy es Jan solo. Valorar apoyo de otra persona para iOS y pruebas en dispositivos.

@@ -3,15 +3,14 @@
 | Área | Responsable |
 |---|---|
 | **UI (Interfaz de usuario)** | Pau |
-| **Aplicación Android** | Jan |
-| **Aplicación iOS (última fase)** | Por confirmar (propuesta: Jan) |
+| **Aplicación móvil (Android + iOS a la vez)** | Jan |
 | **Backend + Web** | Sergi y Aleix |
 
 ---
 
 ## Pau — UI
 
-Diseño de la interfaz para Web y Android.
+Diseño de la interfaz para Web y móvil (Android e iOS: respetar las guías de cada plataforma).
 
 - [ ] Definir guía de estilo (colores, tipografía, iconos, componentes).
 - [ ] Wireframes de las pantallas principales.
@@ -23,11 +22,12 @@ Diseño de la interfaz para Web y Android.
 - [ ] Entregar assets (iconos, logo) a Jan, Sergi y Aleix en `design/`.
 - [ ] Revisar que las implementaciones respetan el diseño.
 
-## Jan — App móvil (Android)
+## Jan — App móvil (Android + iOS)
 
-Implementación de la aplicación móvil siguiendo el diseño de Pau.
+Implementación de la aplicación móvil para **Android e iOS a la vez**, siguiendo el diseño de Pau. La elección de framework (ver [ARQUITECTURA.md](ARQUITECTURA.md)) condiciona el plan; con un framework multiplataforma se comparte casi todo el código.
 
-- [ ] Crear proyecto Android y estructura base.
+- [ ] Elegir framework (multiplataforma o nativo) y crear el proyecto base en `mobile/`.
+- [ ] Confirmar acceso a un Mac y cuenta de desarrollador de Apple para iOS.
 - [ ] Implementar las pantallas diseñadas por Pau.
 - [ ] Conexión con la API del backend (login, movimientos, categorías, cuentas).
 - [ ] Gestión de sesión del usuario.
@@ -36,7 +36,9 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 - [ ] Pantalla de resumen y gráficos.
 - [ ] Presupuestos y avisos.
 - [ ] Manejo de errores y estados sin conexión.
-- [ ] Pruebas en dispositivo / emulador y generación del APK.
+- [ ] Almacenamiento seguro en cada plataforma (Keystore en Android, Keychain en iOS).
+- [ ] Pruebas en dispositivo / emulador / simulador en ambas plataformas.
+- [ ] Generación del APK (Android) y distribución de los RC por TestFlight (iOS).
 
 ## Sergi y Aleix — Backend + Web
 
@@ -82,18 +84,7 @@ Implementación de la aplicación móvil siguiendo el diseño de Pau.
 | 1. Diseño y base | Guía de estilo + wireframes; proyectos base; modelo de datos y API definida | Pau / Jan / Sergi y Aleix |
 | 2. Núcleo | Login, CRUD de movimientos, categorías y cuentas (backend + clientes) | Todos |
 | 3. Valor añadido | Resumen, gráficos, presupuestos | Todos |
-| 4. iOS | App iOS con el diseño de Pau sobre la API ya estable | Por confirmar (propuesta: Jan) + Pau (diseño) |
-| 5. Cierre | Pruebas, pulido de UI, documentación, entrega | Todos |
-
-## iOS (última fase)
-
-Se desarrolla al final, cuando backend, web y Android estén estables.
-
-- [ ] Confirmar responsable, tecnología y equipo/cuenta de desarrollo (Mac, cuenta de Apple).
-- [ ] Adaptar el diseño de Pau a iOS (guías de Apple).
-- [ ] Implementar las pantallas y la conexión con la API.
-- [ ] Almacenamiento seguro (Keychain), formato de importes por divisa e idioma.
-- [ ] Pruebas en dispositivo/simulador y distribución de los RC por TestFlight.
+| 4. Cierre | Pruebas, pulido de UI, documentación, entrega | Todos |
 
 ## Fuera de alcance por ahora
 
@@ -102,7 +93,7 @@ Se desarrolla al final, cuando backend, web y Android estén estables.
 
 ## Dependencias entre áreas
 
-- **Jan** y **Sergi/Aleix (Web)** necesitan los diseños de **Pau** para construir las pantallas.
+- **Jan** (Android + iOS) y **Sergi/Aleix (Web)** necesitan los diseños de **Pau** para construir las pantallas.
 - **Jan** y la **Web** necesitan la **API documentada** del backend; mientras tanto pueden trabajar con datos de prueba.
 - Acordar pronto el contrato de la API (rutas y formato JSON) para trabajar en paralelo.
 

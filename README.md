@@ -4,11 +4,11 @@ Proyecto conjunto de cuatro estudiantes de FP para crear una **herramienta open 
 
 ## 📌 Estado
 
-En fase de planificación. Documentación y workflow definidos; stack tecnológico y diseño pendientes de cerrar antes de empezar el desarrollo. Plataformas: **Web y Android**, y **iOS en la última fase**.
+En fase de planificación. Documentación y workflow definidos; stack tecnológico y diseño pendientes de cerrar antes de empezar el desarrollo. Plataformas: **Web** y **app móvil para Android e iOS** (desarrollo simultáneo).
 
 ## 💰 Sobre el proyecto
 
-Money Tracker es una aplicación para controlar ingresos y gastos personales, con versión **Web** y **Android** y un backend común que sincroniza los datos.
+Money Tracker es una aplicación para controlar ingresos y gastos personales, con versión **Web** y app móvil para **Android e iOS** y un backend común que sincroniza los datos.
 
 - Funcionalidades previstas: movimientos, categorías, cuentas, resumen mensual, gráficos, presupuestos y exportación CSV. Soporta **varias divisas** con conversión a una divisa base.
 - Arquitectura y modelo de datos: [ARQUITECTURA.md](ARQUITECTURA.md)
@@ -20,7 +20,7 @@ Money Tracker es una aplicación para controlar ingresos y gastos personales, co
 | Área | Responsable |
 |---|---|
 | UI (interfaz de usuario) | Pau |
-| App móvil (Android) | Jan |
+| App móvil (Android + iOS) | Jan |
 | Backend + Web | Sergi y Aleix |
 
 ## 👥 Equipo
