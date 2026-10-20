@@ -24,7 +24,7 @@ Propuesta de herramientas dentro del ecosistema Java (la elección concreta de c
 | Migraciones | Flyway o Liquibase, en `backend/migrations/` |
 | Validación de entradas | Bean Validation (DTOs explícitos; campos inesperados rechazados) |
 | Autenticación y autorización | Spring Security; contraseñas con Argon2id (o bcrypt) |
-| Contrato de API | OpenAPI generado con springdoc, publicado como `backend/openapi.yaml` |
+| Contrato de API | GoogleAI studio generado con springdoc, publicado como `backend/gemini.yaml` |
 | *Rate limiting* | Bucket4j u otro filtro equivalente |
 | Importes | `long` en unidades menores o `BigDecimal` con la escala de la divisa (nunca `double`), según [ARQUITECTURA.md](../../ARQUITECTURA.md#multidivisa) |
 | Tests | JUnit 5 + Testcontainers (BD real) + tests de autorización y de contrato |
