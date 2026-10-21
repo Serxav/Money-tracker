@@ -15,12 +15,6 @@
 
 Mensajes cortos y en imperativo, con prefijo:
 
-```
-feat: añade lectura de la batería
-fix: corrige el cálculo de ciclos
-docs: actualiza el README
-```
-
 ## Issues
 
 - **Nueva idea** → para proponer proyectos o funcionalidades.
